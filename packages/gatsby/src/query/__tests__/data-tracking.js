@@ -35,13 +35,6 @@ jest.mock(`fs-extra`, () => {
   }
 })
 
-jest.mock(`gatsby-telemetry`, () => {
-  return {
-    trackCli: () => {},
-    captureEvent: () => {},
-  }
-})
-
 jest.mock(`../../utils/cache-lmdb`, () => {
   return {
     default: class MockedCache {
@@ -67,6 +60,13 @@ jest.mock(`gatsby-cli/lib/reporter`, () => {
       return {
         start: jest.fn(),
         setStatus: jest.fn(),
+        end: jest.fn(),
+      }
+    },
+    createProgress: () => {
+      return {
+        start: jest.fn(),
+        tick: jest.fn(),
         end: jest.fn(),
       }
     },

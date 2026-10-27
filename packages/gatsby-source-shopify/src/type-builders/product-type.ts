@@ -1,11 +1,12 @@
 export function productTypeBuilder(prefix: string): string {
   return `
       type ${prefix}Product implements Node @dontInfer {
+        _featuredMedia: String! # Temporary field so we don't break existing users
         createdAt: Date! @dateformat
         description: String!
         descriptionHtml: String!
         featuredImage: ${prefix}Image
-        featuredMedia: ${prefix}Media @link(from: "featuredMedia.shopifyId", by: "shopifyId")
+        featuredMedia: ${prefix}Media @link(from: "_featuredMedia", by: "id")
         feedback: ${prefix}ResourceFeedback
         giftCardTemplateSuffix: String
         handle: String!
@@ -15,7 +16,7 @@ export function productTypeBuilder(prefix: string): string {
         isGiftCard: Boolean!
         legacyResourceId: String!
         media: [${prefix}Media!]! @link(from: "media___NODE", by: "id")
-        mediaCount: Int!
+        mediaCount: Int! @proxy(from: "mediaCount.count")
         metafield(namespace: String! key: String!): ${prefix}Metafield
         metafields: [${prefix}Metafield!]! @link(from: "metafields___NODE", by: "id")
         onlineStorePreviewUrl: String
@@ -26,7 +27,7 @@ export function productTypeBuilder(prefix: string): string {
         productType: String!
         publishedAt: Date @dateformat
         requiresSellingPlan: Boolean!
-        sellingPlanGroupCount: Int!
+        sellingPlanGroupCount: Int! @proxy(from: "sellingPlanGroupsCount.count")
         seo: ${prefix}SEO!
         shopifyId: String!
         status: ${prefix}ProductStatus!

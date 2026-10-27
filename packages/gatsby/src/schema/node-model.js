@@ -10,7 +10,7 @@ const {
   getNullableType,
   isCompositeType,
 } = require(`graphql`)
-const invariant = require(`invariant`)
+const invariant = require(`tiny-invariant`)
 const reporter = require(`gatsby-cli/lib/reporter`)
 import { store } from "../redux"
 import { getDataStore, getNode, getTypes } from "../datastore"
@@ -166,13 +166,13 @@ class LocalNodeModel {
    * @returns {Node[]}
    * @example
    * // Using only the id
-   * getNodeByIds({ ids: [`123`, `456`] })
+   * getNodesByIds({ ids: [`123`, `456`] })
    *
    * // Using id and type
-   * getNodeByIds({ ids: [`123`, `456`], type: `MyType` })
+   * getNodesByIds({ ids: [`123`, `456`], type: `MyType` })
    *
    * // Providing page dependencies
-   * getNodeByIds({ ids: [`123`, `456`] }, { path: `/` })
+   * getNodesByIds({ ids: [`123`, `456`] }, { path: `/` })
    */
   getNodesByIds(args, pageDependencies) {
     const { ids, type } = args || {}
@@ -327,7 +327,7 @@ class LocalNodeModel {
    * const { entries, totalCount } = await findAll({
    *   type: `MyType`,
    *   query: {
-   *     sort: { fields: [`date`], order: [`desc`] },
+   *     sort: { date: `desc` },
    *     filter: { published: { eq: false } },
    *   },
    * })
@@ -521,10 +521,10 @@ class LocalNodeModel {
     let iterations = 0
     let ids = this._rootNodeMap.get(obj)
     if (!ids) {
-      ids = []
+      ids = new Set()
     }
-    if (obj?.parent) {
-      ids.push(obj.parent)
+    if (obj?.parent && typeof obj.parent === `string`) {
+      ids.add(obj.parent)
     }
     let matchingRoot = null
 

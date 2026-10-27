@@ -3,7 +3,12 @@ import { basename, extname } from "path"
 import { URL } from "url"
 import { createContentDigest } from "gatsby-core-utils/create-content-digest"
 import { isImage } from "../types"
-import type { ImageCropFocus, WidthOrHeight } from "../types"
+import type {
+  ImageCdnUrlGeneratorFn,
+  ImageCdnSourceImage,
+  ImageCdnTransformArgs,
+  FileCdnUrlGeneratorFn,
+} from "../types"
 import type { Store } from "gatsby"
 
 // this is an arbitrary origin that we use #branding so we can construct a full url for the URL constructor
@@ -54,16 +59,34 @@ function appendUrlParamToSearchParams(
   searchParams.append(paramName, finalUrl)
 }
 
+const frontendHostName = process.env.IMAGE_CDN_HOSTNAME || ``
+
+let customImageCDNUrlGenerator: ImageCdnUrlGeneratorFn | undefined = undefined
+let customFileCDNUrlGenerator: FileCdnUrlGeneratorFn | undefined = undefined
+
+const preferDefault = (m: any): any => (m && m.default) || m
+
 export function generateFileUrl(
-  {
-    url,
-    filename,
-  }: {
-    url: string
-    filename: string
-  },
+  source: ImageCdnSourceImage,
   store?: Store
 ): string {
+  const state = store?.getState()
+
+  const pathPrefix = state?.program?.prefixPaths
+    ? state?.config?.pathPrefix
+    : ``
+
+  if (global.__GATSBY?.fileCDNUrlGeneratorModulePath) {
+    if (!customFileCDNUrlGenerator) {
+      customFileCDNUrlGenerator = preferDefault(
+        require(global.__GATSBY.fileCDNUrlGeneratorModulePath)
+      ) as FileCdnUrlGeneratorFn
+    }
+    return customFileCDNUrlGenerator(source, pathPrefix)
+  }
+
+  const { url, filename } = source
+
   const fileExt = extname(filename)
   const filenameWithoutExt = basename(filename, fileExt)
 
@@ -72,30 +95,40 @@ export function generateFileUrl(
       {
         url,
       },
-      store
+      pathPrefix
     )}/${filenameWithoutExt}${fileExt}`
   )
 
   appendUrlParamToSearchParams(parsedURL.searchParams, url)
 
-  return `${parsedURL.pathname}${parsedURL.search}`
+  return `${frontendHostName}${parsedURL.pathname}${parsedURL.search}`
 }
 
 export function generateImageUrl(
-  source: {
-    url: string
-    mimeType: string
-    filename: string
-    internal: { contentDigest: string }
-  },
-  imageArgs: Parameters<typeof generateImageArgs>[0],
+  source: ImageCdnSourceImage,
+  imageArgs: ImageCdnTransformArgs,
   store?: Store
 ): string {
+  const state = store?.getState()
+
+  const pathPrefix = state?.program?.prefixPaths
+    ? state?.config?.pathPrefix
+    : ``
+
+  if (global.__GATSBY?.imageCDNUrlGeneratorModulePath) {
+    if (!customImageCDNUrlGenerator) {
+      customImageCDNUrlGenerator = preferDefault(
+        require(global.__GATSBY.imageCDNUrlGeneratorModulePath)
+      ) as ImageCdnUrlGeneratorFn
+    }
+    return customImageCDNUrlGenerator(source, imageArgs, pathPrefix)
+  }
+
   const filenameWithoutExt = basename(source.filename, extname(source.filename))
   const queryStr = generateImageArgs(imageArgs)
 
   const parsedURL = new URL(
-    `${ORIGIN}${generatePublicUrl(source, store)}/${createContentDigest(
+    `${ORIGIN}${generatePublicUrl(source, pathPrefix)}/${createContentDigest(
       queryStr
     )}/${filenameWithoutExt}.${imageArgs.format}`
   )
@@ -107,8 +140,10 @@ export function generateImageUrl(
     source.internal.contentDigest
   )
 
-  return `${parsedURL.pathname}${parsedURL.search}`
+  return `${frontendHostName}${parsedURL.pathname}${parsedURL.search}`
 }
+
+const routePrefix = process.env.IMAGE_CDN_ROUTE_PREFIX || `_gatsby`
 
 function generatePublicUrl(
   {
@@ -118,19 +153,15 @@ function generatePublicUrl(
     url: string
     mimeType?: string
   },
-  store?: Store
+  pathPrefix: string
 ): string {
-  const state = store?.getState()
-
-  const pathPrefix = state?.program?.prefixPaths
-    ? state?.config?.pathPrefix
-    : ``
-
   const remoteUrl = createContentDigest(url)
 
   let publicUrl =
     pathPrefix +
-    (mimeType && isImage({ mimeType }) ? `/_gatsby/image/` : `/_gatsby/file/`)
+    (mimeType && isImage({ mimeType })
+      ? `/${routePrefix}/image/`
+      : `/${routePrefix}/file/`)
 
   publicUrl += `${remoteUrl}`
 
@@ -143,11 +174,7 @@ function generateImageArgs({
   format,
   cropFocus,
   quality,
-}: WidthOrHeight & {
-  format: string
-  cropFocus?: ImageCropFocus | Array<ImageCropFocus>
-  quality: number
-}): string {
+}: ImageCdnTransformArgs): string {
   const args: Array<string> = []
   if (width) {
     args.push(`w=${width}`)

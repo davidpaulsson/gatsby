@@ -2,7 +2,6 @@ import { loadPlugins } from "../index"
 import { slash } from "gatsby-core-utils"
 import reporter from "gatsby-cli/lib/reporter"
 import { IFlattenedPlugin } from "../types"
-import { silent as resolveFrom } from "resolve-from"
 
 const mockNonIncompatibleWarn = jest.fn()
 
@@ -48,7 +47,6 @@ afterEach(() => {
   Object.keys(reporter).forEach(method => {
     reporter[method].mockClear()
   })
-  resolveFrom.mockClear()
   mockProcessExit.mockClear()
 })
 
@@ -223,137 +221,6 @@ describe(`Load plugins`, () => {
       )
 
       expect(tsplugins.length).toEqual(1)
-    })
-  })
-
-  describe(`gatsby-plugin-gatsby-cloud support`, () => {
-    it(`doesn't load gatsby-plugin-gatsby-cloud if not installed`, async () => {
-      resolveFrom.mockImplementation(() => undefined)
-      const config = {
-        plugins: [],
-      }
-
-      let plugins = await loadPlugins(config, process.cwd())
-
-      plugins = replaceFieldsThatCanVary(plugins)
-
-      expect(plugins).toEqual(
-        expect.arrayContaining([
-          expect.not.objectContaining({
-            name: `gatsby-plugin-gatsby-cloud`,
-          }),
-        ])
-      )
-    })
-
-    it(`doesn't load gatsby-plugin-gatsby-cloud if not provided and installed`, async () => {
-      resolveFrom.mockImplementation(
-        (rootDir, pkg) => rootDir + `/node_modules/` + pkg
-      )
-      const config = {
-        plugins: [],
-      }
-
-      let plugins = await loadPlugins(config, process.cwd())
-
-      plugins = replaceFieldsThatCanVary(plugins)
-
-      expect(plugins).toEqual(
-        expect.arrayContaining([
-          expect.not.objectContaining({
-            name: `gatsby-plugin-gatsby-cloud`,
-          }),
-        ])
-      )
-    })
-
-    it(`loads gatsby-plugin-gatsby-cloud if not provided and installed on gatsby-cloud`, async () => {
-      resolveFrom.mockImplementation((rootDir, pkg) => {
-        if (pkg !== `gatsby-plugin-gatsby-cloud`) {
-          return undefined
-        }
-        return rootDir + `/node_modules/` + pkg
-      })
-      const config = {
-        plugins: [],
-      }
-
-      process.env.GATSBY_CLOUD = `true`
-      let plugins = await loadPlugins(config, process.cwd())
-      delete process.env.GATSBY_CLOUD
-
-      plugins = replaceFieldsThatCanVary(plugins)
-
-      expect(plugins).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({
-            name: `gatsby-plugin-gatsby-cloud`,
-          }),
-        ])
-      )
-    })
-
-    it(`uses the user provided plugin-gatsby-cloud if provided`, async () => {
-      resolveFrom.mockImplementation((rootDir, pkg) => {
-        if (pkg !== `gatsby-plugin-gatsby-cloud`) {
-          return undefined
-        }
-        return rootDir + `/node_modules/` + pkg
-      })
-      const config = {
-        plugins: [
-          {
-            resolve: `gatsby-plugin-gatsby-cloud`,
-            options: {
-              generateMatchPathRewrites: false,
-            },
-          },
-        ],
-      }
-
-      process.env.GATSBY_CLOUD = `true`
-      let plugins = await loadPlugins(config, process.cwd())
-      delete process.env.GATSBY_CLOUD
-
-      plugins = replaceFieldsThatCanVary(plugins)
-
-      expect(plugins).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({
-            name: `gatsby-plugin-gatsby-cloud`,
-            pluginOptions: {
-              generateMatchPathRewrites: false,
-              plugins: [],
-            },
-          }),
-        ])
-      )
-    })
-
-    it(`does not add gatsby-plugin-gatsby-cloud if it exists in config.plugins`, async () => {
-      resolveFrom.mockImplementation((rootDir, pkg) => {
-        if (pkg !== `gatsby-plugin-gatsby-cloud`) {
-          return undefined
-        }
-        return rootDir + `/node_modules/` + pkg
-      })
-      const config = {
-        plugins: [
-          `gatsby-plugin-gatsby-cloud`,
-          { resolve: `gatsby-plugin-gatsby-cloud` },
-        ],
-      }
-
-      let plugins = await loadPlugins(config, process.cwd())
-
-      plugins = replaceFieldsThatCanVary(plugins)
-
-      const cloudPlugins = plugins.filter(
-        (plugin: { name: string }) =>
-          plugin.name === `gatsby-plugin-gatsby-cloud`
-      )
-
-      expect(cloudPlugins.length).toEqual(1)
     })
   })
 
@@ -532,6 +399,58 @@ describe(`Load plugins`, () => {
               resolve: `gatsby-transformer-remark`,
               options: {
                 plugins: [
+                  {
+                    resolve: `gatsby-remark-autolink-headers`,
+                    options: {
+                      maintainCase: `should be boolean`,
+                    },
+                  },
+                ],
+              },
+            },
+          ],
+        },
+        process.cwd()
+      )
+
+      expect(reporter.error as jest.Mock).toHaveBeenCalledTimes(1)
+      expect((reporter.error as jest.Mock).mock.calls[0])
+        .toMatchInlineSnapshot(`
+        Array [
+          Object {
+            "context": Object {
+              "configDir": null,
+              "pluginName": "gatsby-remark-autolink-headers",
+              "validationErrors": Array [
+                Object {
+                  "context": Object {
+                    "key": "maintainCase",
+                    "label": "maintainCase",
+                    "value": "should be boolean",
+                  },
+                  "message": "\\"maintainCase\\" must be a boolean",
+                  "path": Array [
+                    "maintainCase",
+                  ],
+                  "type": "boolean.base",
+                },
+              ],
+            },
+            "id": "11331",
+          },
+        ]
+      `)
+      expect(mockProcessExit).toHaveBeenCalledWith(1)
+    })
+
+    it(`validates subplugin schemas (if not in options.plugins)`, async () => {
+      await loadPlugins(
+        {
+          plugins: [
+            {
+              resolve: `gatsby-plugin-mdx`,
+              options: {
+                gatsbyRemarkPlugins: [
                   {
                     resolve: `gatsby-remark-autolink-headers`,
                     options: {

@@ -1,4 +1,4 @@
-import store from "~/store"
+import { getStore } from "~/store"
 import {
   getTypeSettingsByType,
   findNamedTypeName,
@@ -9,6 +9,7 @@ import {
   fieldIsExcludedOnAll,
 } from "~/steps/ingest-remote-schema/is-excluded"
 import { returnAliasedFieldName } from "~/steps/create-schema-customization/transform-fields"
+import { typeIsExcluded } from "../is-excluded"
 
 export const transformInlineFragments = ({
   possibleTypes,
@@ -25,7 +26,7 @@ export const transformInlineFragments = ({
   buildingFragment = false,
   ancestorTypeNames: parentAncestorTypeNames = [],
 }) => {
-  const state = store.getState()
+  const state = getStore().getState()
 
   if (!typeMap) {
     typeMap = state.remoteSchema.typeMap
@@ -63,10 +64,19 @@ export const transformInlineFragments = ({
         return false
       }
 
+      if (
+        typeIsExcluded({
+          pluginOptions,
+          typeName: findNamedTypeName(type),
+        })
+      ) {
+        return false
+      }
+
       possibleType.type = { ...type }
 
       // save this type so we can use it in schema customization
-      store.dispatch.remoteSchema.addFetchedType(type)
+      getStore().dispatch.remoteSchema.addFetchedType(type)
 
       const isAGatsbyNode = gatsbyNodesInfo.typeNames.includes(
         possibleType.name
@@ -531,6 +541,10 @@ const transformFields = ({
         !fieldIsExcludedOnAll({
           pluginOptions,
           field,
+        }) &&
+        !typeIsExcluded({
+          pluginOptions,
+          typeName: findNamedTypeName(field.type),
         })
     )
     .map(field => {
@@ -552,7 +566,7 @@ const transformFields = ({
 
       if (transformedField) {
         // save this type so we know to use it in schema customization
-        store.dispatch.remoteSchema.addFetchedType(field.type)
+        getStore().dispatch.remoteSchema.addFetchedType(field.type)
       }
 
       const typeName = findNamedTypeName(field.type)
@@ -650,7 +664,7 @@ const recursivelyTransformFields = ({
   const {
     gatsbyApi: { pluginOptions },
     remoteSchema: { fieldBlacklist, fieldAliases, typeMap, gatsbyNodesInfo },
-  } = store.getState()
+  } = getStore().getState()
 
   const {
     schema: { queryDepth, circularQueryLimit },

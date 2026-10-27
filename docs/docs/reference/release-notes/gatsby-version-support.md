@@ -14,7 +14,7 @@ Note: Future time ranges are listed when a specific target date is not yet deter
 
 | Version | Status                        | As Of            | Until            |
 | ------- | ----------------------------- | ---------------- | ---------------- |
-| 5       | Active Long-term support      | November 8, 2022 | Q4 2023          |
+| 5       | Active Long-term support      | November 8, 2022 | -                |
 | 4       | Maintenance Long-term support | November 8, 2022 | Q4 2023          |
 | 3       | Unsupported                   | October 21, 2021 | November 8, 2022 |
 | 2       | Unsupported                   | January 1, 2022  | -                |
@@ -33,7 +33,3 @@ Note: Future time ranges are listed when a specific target date is not yet deter
 
 - To receive the newest enhancements and bug fixes, ensure that you've [migrated to Gatsby Version 5](/docs/reference/release-notes/migrating-from-v4-to-v5/)
 - Continue reporting any issues as you typically would, either using [support](https://www.gatsbyjs.com/support/) on Gatsbyjs.com, or by [opening an issues](https://github.com/gatsbyjs/gatsby/issues/new/choose) in our GitHub repository.
-
-## What does this mean for Gatsby Cloud?
-
-Your Gatsby-powered sites will continue to run as they do today in Gatsby Cloud. However, as enhancements are delivered within Gatsby Cloud and the Gatsby framework, you may need to upgrade your site(s) in order to take advantage of those features and performance enhancements.

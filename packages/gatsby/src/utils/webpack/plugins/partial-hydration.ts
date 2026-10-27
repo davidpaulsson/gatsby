@@ -83,7 +83,7 @@ export class PartialHydrationPlugin {
           }
         })
       } else {
-        if (normalModule.buildInfo.rsc) {
+        if (normalModule.buildInfo?.rsc) {
           const normalizedModuleKey = createNormalizedModuleKey(
             normalModule.resource,
             rootContext
@@ -144,7 +144,7 @@ export class PartialHydrationPlugin {
         const chunkModules =
           compilation.chunkGraph.getChunkModulesIterable(chunk)
         for (const mod of chunkModules) {
-          if (mod.buildInfo.rsc) {
+          if (mod.buildInfo?.rsc) {
             mapOriginalModuleToPotentiallyConcatanetedModule.set(mod, mod)
             newClientModules.add(mod)
           }
@@ -219,7 +219,7 @@ export class PartialHydrationPlugin {
         return
       }
       visited.add(module)
-      if (module.buildInfo.rsc) {
+      if (module.buildInfo?.rsc) {
         return
       }
 
@@ -240,7 +240,7 @@ export class PartialHydrationPlugin {
     let asyncRequires: NormalModule | null = null
     for (const module of compilation.modules) {
       if (module instanceof NormalModule) {
-        if (module.buildInfo.rsc) {
+        if (module.buildInfo?.rsc) {
           clientModules.push(module)
         } else if (module.request.endsWith(`export=default`)) {
           const incomingConnections =
@@ -289,16 +289,20 @@ export class PartialHydrationPlugin {
       throw new Error(`couldn't find async-requires module`)
     }
 
-    const clientSSRLoader = `gatsby/dist/utils/webpack/loaders/client-components-requires-writer-loader?modules=${clientModules
-      .map(
-        module =>
-          `./` +
-          path.relative(
-            compilation.options.context as string,
-            module.userRequest
+    const clientSSRLoader = `gatsby/dist/utils/webpack/loaders/client-components-requires-writer-loader?${JSON.stringify(
+      {
+        modules: clientModules
+          .map(
+            module =>
+              `./` +
+              path.relative(
+                compilation.options.context as string,
+                module.userRequest
+              )
           )
-      )
-      .join(`,`)}!`
+          .join(`,`),
+      }
+    )}!`
 
     const clientComponentEntryDep = webpack.EntryPlugin.createDependency(
       clientSSRLoader,
@@ -399,7 +403,7 @@ export class PartialHydrationPlugin {
             if (hasClientExportDirective) {
               // this metadata will be preserved on warm builds, so we don't need to force parse modules
               // each time, as webpack will manage going through parsing of module is invalidated
-              module.buildInfo.rsc = true
+              module.buildInfo!.rsc = true
             }
           })
         }
@@ -445,11 +449,16 @@ export class PartialHydrationPlugin {
             }
           }
 
-          for (const cssModule of modulesToInsertIntoApp.sort(
-            (a, b) =>
-              compilation.moduleGraph.getPostOrderIndex(a) -
-              compilation.moduleGraph.getPostOrderIndex(b)
-          )) {
+          for (const cssModule of modulesToInsertIntoApp.sort((a, b) => {
+            const _a = compilation.moduleGraph.getPostOrderIndex(a)
+            const _b = compilation.moduleGraph.getPostOrderIndex(b)
+
+            if (!_a || !_b) {
+              return 0
+            } else {
+              return _a - _b
+            }
+          })) {
             compilation.chunkGraph.connectChunkAndModule(appChunk, cssModule)
 
             for (const group of appChunk.groupsIterable) {

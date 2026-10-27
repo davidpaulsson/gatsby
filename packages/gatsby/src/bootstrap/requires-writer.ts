@@ -12,49 +12,21 @@ import {
 } from "../utils/gatsby-webpack-virtual-modules"
 import { getPageMode } from "../utils/page-mode"
 import { devSSRWillInvalidate } from "../commands/build-html"
+import { rankRoute } from "../utils/rank-route"
+
+const hasContentFilePath = (componentPath: string): boolean =>
+  componentPath.includes(`?__contentFilePath=`)
 
 interface IGatsbyPageComponent {
   componentPath: string
   componentChunkName: string
+  hasHeadComponent: boolean
 }
 
 interface IGatsbyPageMatchPath {
   path: string
   matchPath: string | undefined
 }
-
-// path ranking algorithm copied (with small adjustments) from `@reach/router` (internal util, not exported from the package)
-// https://github.com/reach/router/blob/28a79e7fc3a3487cb3304210dc3501efb8a50eba/src/lib/utils.js#L216-L254
-const paramRe = /^:(.+)/
-
-const SEGMENT_POINTS = 4
-const STATIC_POINTS = 3
-const DYNAMIC_POINTS = 2
-const SPLAT_PENALTY = 1
-const ROOT_POINTS = 1
-
-const isRootSegment = (segment: string): boolean => segment === ``
-const isDynamic = (segment: string): boolean => paramRe.test(segment)
-const isSplat = (segment: string): boolean => segment === `*`
-const hasContentFilePath = (componentPath: string): boolean =>
-  componentPath.includes(`?__contentFilePath=`)
-
-const segmentize = (uri: string): Array<string> =>
-  uri
-    // strip starting/ending slashes
-    .replace(/(^\/+|\/+$)/g, ``)
-    .split(`/`)
-
-const rankRoute = (path: string): number =>
-  segmentize(path).reduce((score, segment) => {
-    score += SEGMENT_POINTS
-    if (isRootSegment(segment)) score += ROOT_POINTS
-    else if (isDynamic(segment)) score += DYNAMIC_POINTS
-    else if (isSplat(segment)) score -= SEGMENT_POINTS + SPLAT_PENALTY
-    else score += STATIC_POINTS
-    return score
-  }, 0)
-// end of copied `@reach/router` internals
 
 let lastHash: string | null = null
 
@@ -65,27 +37,33 @@ export const resetLastHash = (): void => {
 type IBareComponentData = Pick<
   IGatsbyPageComponent,
   `componentPath` | `componentChunkName`
->
-const pickComponentFields = (
-  page: IGatsbyPage | IGatsbySlice
-): IBareComponentData => {
-  return {
-    componentPath: page.componentPath,
-    componentChunkName: page.componentChunkName,
-  }
+> & {
+  hasHeadComponent: boolean
 }
 
 export const getComponents = (
   pages: Array<IGatsbyPage>,
-  slices: IGatsbyState["slices"]
-): Array<IGatsbyPageComponent> =>
-  _.orderBy(
+  slices: IGatsbyState["slices"],
+  components: IGatsbyState["components"]
+): Array<IGatsbyPageComponent> => {
+  const pickComponentFields = (
+    page: IGatsbyPage | IGatsbySlice
+  ): IBareComponentData => {
+    return {
+      componentPath: page.componentPath,
+      componentChunkName: page.componentChunkName,
+      hasHeadComponent: components.get(page.componentPath)?.Head ?? false,
+    }
+  }
+
+  return _.orderBy(
     _.uniqBy(
       _.map([...pages, ...slices.values()], pickComponentFields),
       c => c.componentChunkName
     ),
     c => c.componentChunkName
   )
+}
 
 /**
  * Get all dynamic routes and sort them by most specific at the top
@@ -180,7 +158,7 @@ export const writeAll = async (state: IGatsbyState): Promise<boolean> => {
   const { program, slices } = state
   const pages = [...state.pages.values()]
   const matchPaths = getMatchPaths(pages)
-  const components = getComponents(pages, slices)
+  const components = getComponents(pages, slices, state.components)
   let cleanedSSRVisitedPageComponents: Array<IGatsbyPageComponent> = []
 
   if (process.env.GATSBY_EXPERIMENTAL_DEV_SSR) {
@@ -270,7 +248,10 @@ const preferDefault = m => (m && m.default) || m
 }\n\n
 
 exports.head = {\n${components
-      .map((c: IGatsbyPageComponent): string => {
+      .map((c: IGatsbyPageComponent): string | undefined => {
+        if (!c.hasHeadComponent) {
+          return undefined
+        }
         // we need a relative import path to keep contenthash the same if directory changes
         const relativeComponentPath = path.relative(
           getAbsolutePathForVirtualModule(`$virtual`),
@@ -285,6 +266,7 @@ exports.head = {\n${components
           c.componentChunkName
         }head" */)`
       })
+      .filter(Boolean)
       .join(`,\n`)}
 }\n\n`
   } else {

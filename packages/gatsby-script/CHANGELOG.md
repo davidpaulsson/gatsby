@@ -3,6 +3,99 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.16.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-script@2.16.0/packages/gatsby-script) (2026-01-26)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.16)
+
+#### Features
+
+- support React 19 [#39306](https://github.com/gatsbyjs/gatsby/issues/39306) ([9e39c05](https://github.com/gatsbyjs/gatsby/commit/9e39c05f2c48aedfc495421367e67ee4bcbf1c4a))
+
+#### Bug Fixes
+
+- use more explicit node.js version range [#39398](https://github.com/gatsbyjs/gatsby/issues/39398) ([c355640](https://github.com/gatsbyjs/gatsby/commit/c35564071466681951402a04fb33ae34cc673a2b))
+
+#### Other Changes
+
+- Revert "chore(release): Publish next pre-minor" ([3539ec8](https://github.com/gatsbyjs/gatsby/commit/3539ec8d8973e8eabbeb10734e3bb54bd831ac6c))
+
+## [2.15.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-script@2.15.0/packages/gatsby-script) (2025-08-27)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.15)
+
+**Note:** Version bump only for package gatsby-script
+
+## [2.14.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-script@2.14.0/packages/gatsby-script) (2024-11-06)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.14)
+
+#### Chores
+
+- update dependency del-cli to ^5.1.0 for gatsby-script [#38504](https://github.com/gatsbyjs/gatsby/issues/38504) ([ddcc30b](https://github.com/gatsbyjs/gatsby/commit/ddcc30beba00f8a82280bb7f1ee0cea0b2eba4dd))
+
+## [2.13.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-script@2.13.0/packages/gatsby-script) (2023-12-18)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.13)
+
+**Note:** Version bump only for package gatsby-script
+
+## [2.12.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-script@2.12.0/packages/gatsby-script) (2023-08-24)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.12)
+
+#### Bug Fixes
+
+- update typescript [#38324](https://github.com/gatsbyjs/gatsby/issues/38324) ([5d0d7c1](https://github.com/gatsbyjs/gatsby/commit/5d0d7c12552fa7570bad2002806bca3d18f923de))
+
+## [2.11.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-script@2.11.0/packages/gatsby-script) (2023-06-15)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.11)
+
+#### Bug Fixes
+
+- update typescript [#38133](https://github.com/gatsbyjs/gatsby/issues/38133) ([aa7a078](https://github.com/gatsbyjs/gatsby/commit/aa7a078383ca5a549743be3269e9bde44655a185))
+
+## [2.10.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-script@2.10.0/packages/gatsby-script) (2023-05-16)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.10)
+
+#### Chores
+
+- update gatsby monorepo [#38014](https://github.com/gatsbyjs/gatsby/issues/38014) ([ee0797c](https://github.com/gatsbyjs/gatsby/commit/ee0797cbfcaafd392f1e9c551c4f294b2d068e68))
+
+## [2.9.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-script@2.9.0/packages/gatsby-script) (2023-04-18)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.9)
+
+#### Bug Fixes
+
+- update typescript to v5 (major) [#37906](https://github.com/gatsbyjs/gatsby/issues/37906) ([3859ba6](https://github.com/gatsbyjs/gatsby/commit/3859ba6ce629e658525f858a8799b08c34c3eda5))
+
+#### Chores
+
+- update typescript [#37848](https://github.com/gatsbyjs/gatsby/issues/37848) ([9f92796](https://github.com/gatsbyjs/gatsby/commit/9f92796070b0e73fa92089af93de376c9be9021e))
+
+## [2.8.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-script@2.8.0/packages/gatsby-script) (2023-03-21)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.8)
+
+**Note:** Version bump only for package gatsby-script
+
+## [2.7.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-script@2.7.0/packages/gatsby-script) (2023-02-21)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.7)
+
+**Note:** Version bump only for package gatsby-script
+
+## [2.6.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-script@2.6.0/packages/gatsby-script) (2023-02-07)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.6)
+
+#### Chores
+
+- update typescript [#37596](https://github.com/gatsbyjs/gatsby/issues/37596) ([4f1d1f2](https://github.com/gatsbyjs/gatsby/commit/4f1d1f260472d7768b57960b1e274c8755ca5a67))
+- bump @gatsbyjs/reach-router [#37547](https://github.com/gatsbyjs/gatsby/issues/37547) ([7a83513](https://github.com/gatsbyjs/gatsby/commit/7a83513f147c8ab2e3c0a38f99e15743c79d1e25))
+
 ## [2.5.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-script@2.5.0/packages/gatsby-script) (2023-01-24)
 
 [🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.5)

@@ -12,6 +12,7 @@ import { reportWebpackWarnings } from "../../utils/webpack-error-utils"
 import { internalActions } from "../../redux/actions"
 import { IGatsbyFunction } from "../../redux/types"
 import { functionMiddlewares } from "./middleware"
+import mod from "module"
 
 const isProductionEnv = process.env.gatsby_executing_command !== `develop`
 
@@ -154,6 +155,7 @@ const createWebpackConfig = async ({
     store.getState().flattenedPlugins
   )
 
+  const seenFunctionIds = new Set<string>()
   // Glob and return object with relative/absolute paths + which plugin
   // they belong to.
   const allFunctions = await Promise.all(
@@ -175,6 +177,22 @@ const createWebpackConfig = async ({
         )
         const finalName = urlResolve(dir, name === `index` ? `` : name)
 
+        // functionId should have only alphanumeric characters and dashes
+        const functionIdBase = _.kebabCase(compiledFunctionName).replace(
+          /[^a-zA-Z0-9-]/g,
+          `-`
+        )
+
+        let functionId = functionIdBase
+
+        if (seenFunctionIds.has(functionId)) {
+          let counter = 2
+          do {
+            functionId = `${functionIdBase}-${counter}`
+            counter++
+          } while (seenFunctionIds.has(functionId))
+        }
+
         knownFunctions.push({
           functionRoute: finalName,
           pluginName: glob.pluginName,
@@ -183,6 +201,7 @@ const createWebpackConfig = async ({
           relativeCompiledFilePath: compiledFunctionName,
           absoluteCompiledFilePath: compiledPath,
           matchPath: getMatchPath(finalName),
+          functionId,
         })
       })
 
@@ -202,6 +221,11 @@ const createWebpackConfig = async ({
     path.join(compiledFunctionsDir, `manifest.json`),
     JSON.stringify(knownFunctions, null, 4)
   )
+
+  const {
+    config: { pathPrefix },
+    program,
+  } = store.getState()
 
   // Load environment variables from process.env.* and .env.* files.
   // Logic is shared with webpack.config.js
@@ -269,7 +293,11 @@ const createWebpackConfig = async ({
       parsedFile.name
     )
 
-    entries[compiledNameWithoutExtension] = functionObj.originalAbsoluteFilePath
+    let entryToTheFunction = functionObj.originalAbsoluteFilePath
+    // we wrap user defined function with our preamble that handles matchPath as well as body parsing
+    // see api-function-webpack-loader.ts for more info
+    entryToTheFunction += `?matchPath=` + (functionObj.matchPath ?? ``)
+    entries[compiledNameWithoutExtension] = entryToTheFunction
   })
 
   activeEntries = entries
@@ -277,6 +305,10 @@ const createWebpackConfig = async ({
   const stage = isProductionEnv
     ? `functions-production`
     : `functions-development`
+
+  const gatsbyPluginTSRequire = mod.createRequire(
+    require.resolve(`gatsby-plugin-typescript`)
+  )
 
   return {
     entry: entries,
@@ -317,6 +349,13 @@ const createWebpackConfig = async ({
         // Not all libraries have adapted so we don't enforce its behaviour
         // @see https://github.com/webpack/webpack/issues/11467
         {
+          test: /\.[tj]sx?$/,
+          resourceQuery: /matchPath/,
+          use: {
+            loader: require.resolve(`./api-function-webpack-loader`),
+          },
+        },
+        {
           test: /\.mjs$/i,
           resolve: {
             byDependency: {
@@ -339,9 +378,11 @@ const createWebpackConfig = async ({
             },
           },
           use: {
-            loader: `babel-loader`,
+            loader: require.resolve(`babel-loader`),
             options: {
-              presets: [`@babel/typescript`],
+              presets: [
+                gatsbyPluginTSRequire.resolve(`@babel/preset-typescript`),
+              ],
             },
           },
         },
@@ -349,16 +390,23 @@ const createWebpackConfig = async ({
           test: [/.js$/, /.ts$/],
           exclude: /node_modules/,
           use: {
-            loader: `babel-loader`,
+            loader: require.resolve(`babel-loader`),
             options: {
-              presets: [`@babel/typescript`],
+              presets: [
+                gatsbyPluginTSRequire.resolve(`@babel/preset-typescript`),
+              ],
             },
           },
         },
       ],
     },
     plugins: [
-      new webpack.DefinePlugin(processEnvVars),
+      new webpack.DefinePlugin({
+        PREFIX_TO_STRIP: JSON.stringify(
+          program.prefixPaths ? pathPrefix?.replace(/(^\/+|\/+$)/g, ``) : ``
+        ),
+        ...processEnvVars,
+      }),
       new webpack.IgnorePlugin({
         checkResource(resource): boolean {
           if (resource === `lmdb`) {

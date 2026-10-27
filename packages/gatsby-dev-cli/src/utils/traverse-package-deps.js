@@ -9,7 +9,6 @@ const path = require(`path`)
  * ```
  * {
  *   "gatsby-cli": Set(["gatsby"]),
- *   "gatsby-telemetry": Set(["gatsby", "gatsby-cli"]),
  *   "gatsby-source-filesystem": Set(["gatsby-source-contentful", "gatsby-source-drupal", "gatsby-source-wordpress", etc])
  *   // no package have remark plugin in dependencies - so dependent list is empty
  *   "gatsby-transformer-remark": Set([])
@@ -60,7 +59,7 @@ const traversePackagesDeps = ({
     }
 
     const fromMonoRepo = _.intersection(
-      Object.keys({ ...pkgJson.dependencies }),
+      Object.keys({ ...pkgJson.dependencies, ...pkgJson.optionalDependencies }),
       monoRepoPackages
     )
 

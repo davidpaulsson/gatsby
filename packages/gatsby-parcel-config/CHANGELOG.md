@@ -3,6 +3,84 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-parcel-config@1.16.0/packages/gatsby-parcel-config) (2026-01-26)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.16)
+
+#### Other Changes
+
+- Revert "chore(release): Publish next pre-minor" ([3539ec8](https://github.com/gatsbyjs/gatsby/commit/3539ec8d8973e8eabbeb10734e3bb54bd831ac6c))
+
+## [1.15.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-parcel-config@1.15.0/packages/gatsby-parcel-config) (2025-08-27)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.15)
+
+**Note:** Version bump only for package gatsby-parcel-config
+
+## [1.14.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-parcel-config@1.14.0/packages/gatsby-parcel-config) (2024-11-06)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.14)
+
+**Note:** Version bump only for package gatsby-parcel-config
+
+### [1.13.1](https://github.com/gatsbyjs/gatsby/commits/gatsby-parcel-config@1.13.1/packages/gatsby-parcel-config) (2024-01-23)
+
+**Note:** Version bump only for package gatsby-parcel-config
+
+## [1.13.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-parcel-config@1.13.0/packages/gatsby-parcel-config) (2023-12-18)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.13)
+
+**Note:** Version bump only for package gatsby-parcel-config
+
+### [1.12.1](https://github.com/gatsbyjs/gatsby/commits/gatsby-parcel-config@1.12.1/packages/gatsby-parcel-config) (2023-10-26)
+
+**Note:** Version bump only for package gatsby-parcel-config
+
+## [1.12.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-parcel-config@1.12.0/packages/gatsby-parcel-config) (2023-08-24)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.12)
+
+**Note:** Version bump only for package gatsby-parcel-config
+
+## [1.11.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-parcel-config@1.11.0/packages/gatsby-parcel-config) (2023-06-15)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.11)
+
+**Note:** Version bump only for package gatsby-parcel-config
+
+## [1.10.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-parcel-config@1.10.0/packages/gatsby-parcel-config) (2023-05-16)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.10)
+
+**Note:** Version bump only for package gatsby-parcel-config
+
+## [1.9.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-parcel-config@1.9.0/packages/gatsby-parcel-config) (2023-04-18)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.9)
+
+**Note:** Version bump only for package gatsby-parcel-config
+
+## [1.8.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-parcel-config@1.8.0/packages/gatsby-parcel-config) (2023-03-21)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.8)
+
+**Note:** Version bump only for package gatsby-parcel-config
+
+## [1.7.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-parcel-config@1.7.0/packages/gatsby-parcel-config) (2023-02-21)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.7)
+
+**Note:** Version bump only for package gatsby-parcel-config
+
+## [1.6.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-parcel-config@1.6.0/packages/gatsby-parcel-config) (2023-02-07)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.6)
+
+#### Bug Fixes
+
+- update parcel to v2.8.3 [#37583](https://github.com/gatsbyjs/gatsby/issues/37583) ([c2192cc](https://github.com/gatsbyjs/gatsby/commit/c2192cc7c30c79bbef179de7e03898fce6c0f9af))
+
 ## [1.5.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-parcel-config@1.5.0/packages/gatsby-parcel-config) (2023-01-24)
 
 [🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.5)

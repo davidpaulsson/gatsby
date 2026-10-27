@@ -7,10 +7,9 @@ import reporter from "gatsby-cli/lib/reporter"
 import { validateOptionsSchema, Joi } from "gatsby-plugin-utils"
 import { IPluginRefObject } from "gatsby-plugin-utils/dist/types"
 import { stripIndent } from "common-tags"
-import { trackCli } from "gatsby-telemetry"
 import { isWorker } from "gatsby-worker"
 import { resolveModuleExports } from "../resolve-module-exports"
-import { getLatestAPIs } from "../../utils/get-latest-apis"
+import { getLatestAPIs } from "../../utils/get-latest-gatsby-files"
 import { GatsbyNode, PackageJson } from "../../../"
 import {
   IPluginInfo,
@@ -181,26 +180,25 @@ export async function handleBadExports({
   }
 }
 
-interface ISubPluginCustomReturn {
-  resolve: string
-  modulePath: string
-  options: {
-    [key: string]: unknown
-  }
-  module: any
-}
+const addModuleImportAndValidateOptions =
+  (rootDir: string, incErrors: (inc: number) => void) =>
+  async (value: Array<IPluginRefObject>): Promise<Array<IPluginRefObject>> => {
+    for (const plugin of value) {
+      if (plugin.modulePath) {
+        const importedModule = await import(
+          maybeAddFileProtocol(plugin.modulePath)
+        )
+        const pluginModule = preferDefault(importedModule)
+        plugin.module = pluginModule
+      }
+    }
 
-const addModuleImport = async (
-  value: Array<ISubPluginCustomReturn>
-): Promise<Array<ISubPluginCustomReturn>> => {
-  for (const plugin of value) {
-    const importedModule = await import(maybeAddFileProtocol(plugin.modulePath))
-    const pluginModule = preferDefault(importedModule)
-    plugin.module = pluginModule
-  }
+    const { errors: subErrors, plugins: subPlugins } =
+      await validatePluginsOptions(value as Array<IPluginRefObject>, rootDir)
 
-  return value
-}
+    incErrors(subErrors)
+    return subPlugins
+  }
 
 async function validatePluginsOptions(
   plugins: Array<IPluginRefObject>,
@@ -290,7 +288,15 @@ async function validatePluginsOptions(
                 })
               }, `Gatsby specific subplugin validation`)
               .default([])
-              .external(addModuleImport, `add module key to subplugin`),
+              .external(
+                addModuleImportAndValidateOptions(
+                  rootDir,
+                  (inc: number): void => {
+                    errors += inc
+                  }
+                ),
+                `add module key to subplugin`
+              ),
             args: (schema: any, args: any): any => {
               if (
                 args?.entry &&
@@ -355,17 +361,11 @@ async function validatePluginsOptions(
         } if you believe this option is valid.
       `)
           )
-          trackCli(`UNKNOWN_PLUGIN_OPTION`, {
-            name: plugin.resolve,
-            valueString: validationWarnings
-              .map(error => error.path.join(`.`))
-              .join(`, `),
-          })
           // We do not increment errors++ here as we do not want to process.exit if there are only warnings
         }
 
-        // Validate subplugins
-        if (plugin.options?.plugins) {
+        // Validate subplugins if they weren't handled already
+        if (!subPluginPaths.has(`plugins`) && plugin.options?.plugins) {
           const { errors: subErrors, plugins: subPlugins } =
             await validatePluginsOptions(
               plugin.options.plugins as Array<IPluginRefObject>,

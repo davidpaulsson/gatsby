@@ -18,9 +18,6 @@
   <a href="https://gatsbyjs.com/contributing/how-to-contribute/">
     <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome!" />
   </a>
-  <a href="https://twitter.com/intent/follow?screen_name=gatsbyjs">
-    <img src="https://img.shields.io/twitter/follow/gatsbyjs.svg?label=Follow%20@gatsbyjs" alt="Follow @gatsbyjs" />
-  </a>
 </p>
 
 <br />
@@ -39,7 +36,7 @@
   - 🚥 [Use run-time images](#use-run-time-images)
   - 🖼️ [Displaying images](#displaying-images)
 - 🚨 [Limitations](#limitations)
-- 💾 [V6 to V7 Migration Guide](#v6-to-V7-migration-guide)
+- 💾 [V6 to V7 Migration Guide](#v6-to-v7-migration-guide)
 
 # gatsby-source-shopify
 
@@ -169,6 +166,10 @@ Not set by default. Allows you to override the priority status of a build. If se
 Not set by default. If set to a string (example `My Sales Channel`), only products, variants, collections, and locations that are published to that channel will be sourced. If you want to filter products by a Private App instead of a Public App or default sales channel, you have to provide the App ID instead of sales channel name. You can find this in the same place as the Shopify App Password.
 
 💡 Note: The `salesChannel` plugin option defaults to the value of `process.env.GATBSY_SHOPIFY_SALES_CHANNEL`. If that value is not set the plugin will source only objects that are published to the `online store` sales channel.
+
+`apiVersion: string`
+
+The API version that should be used. More information: https://shopify.dev/docs/api/usage/versioning.
 
 ## Images
 

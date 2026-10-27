@@ -80,7 +80,7 @@ const badgeStyle = {
 const links = [
   {
     text: "Tutorial",
-    url: "https://www.gatsbyjs.com/docs/tutorial/",
+    url: "https://www.gatsbyjs.com/docs/tutorial/getting-started/",
     description:
       "A great place to get started if you're new to web development. Designed to guide you through setting up your first Gatsby site.",
     color: "#E95800",
@@ -118,7 +118,7 @@ const links = [
     url: "https://www.gatsbyjs.com/cloud",
     badge: true,
     description:
-      "Now you’re ready to show the world! Give your Gatsby site superpowers: Build and host on Gatsby Cloud. Get started for free!",
+      "Now you’re ready to show the world! Give your Gatsby site superpowers: Build and host on Netlify. Get started for free!",
     color: "#663399",
   },
 ]
@@ -129,7 +129,9 @@ const IndexPage = () => {
       <h1 style={headingStyles}>
         Congratulations
         <br />
-        <span style={headingAccentStyles}>— you just made a Gatsby site! 🎉🎉🎉</span>
+        <span style={headingAccentStyles}>
+          — you just made a Gatsby site! 🎉🎉🎉
+        </span>
       </h1>
       <p style={paragraphStyles}>
         Edit <code style={codeStyles}>src/pages/index.js</code> to see this page

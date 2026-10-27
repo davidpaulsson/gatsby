@@ -4,7 +4,6 @@ import * as fs from "fs-extra"
 import { releaseAllMutexes } from "gatsby-core-utils/mutex"
 import { md5, md5File } from "gatsby-core-utils"
 import path from "path"
-import telemetry from "gatsby-telemetry"
 import glob from "globby"
 
 import apiRunnerNode from "../utils/api-runner-node"
@@ -26,6 +25,8 @@ import { enableNodeMutationsDetection } from "../utils/detect-node-mutations"
 import { compileGatsbyFiles } from "../utils/parcel/compile-gatsby-files"
 import { resolveModule } from "../utils/module-resolver"
 import { writeGraphQLConfig } from "../utils/graphql-typegen/file-writes"
+import { initAdapterManager } from "../utils/adapter/manager"
+import type { IAdapterManager } from "../utils/adapter/types"
 
 interface IPluginResolution {
   resolve: string
@@ -57,8 +58,6 @@ Please give feedback on their respective umbrella issues!
 - https://gatsby.dev/dev-ssr-feedback
 - https://gatsby.dev/cache-clearing-feedback
   `)
-
-  telemetry.trackFeatureIsUsed(`FastDev`)
 }
 
 // Show stack trace on unhandled promises.
@@ -81,12 +80,12 @@ export async function initialize({
   store: Store<IGatsbyState, AnyAction>
   workerPool: WorkerPool.GatsbyWorkerPool
   webhookBody?: WebhookBody
+  adapterManager?: IAdapterManager
 }> {
   if (process.env.GATSBY_DISABLE_CACHE_PERSISTENCE) {
     reporter.info(
       `GATSBY_DISABLE_CACHE_PERSISTENCE is enabled. Cache won't be persisted. Next builds will not be able to reuse any work done by current session.`
     )
-    telemetry.trackFeatureIsUsed(`DisableCachePersistence`)
   }
   if (!args) {
     reporter.panic(`Missing program args`)
@@ -184,6 +183,14 @@ export async function initialize({
   })
   activity.end()
 
+  let adapterManager: IAdapterManager | undefined = undefined
+
+  // Only initialize adapters during "gatsby build"
+  if (process.env.gatsby_executing_command === `build`) {
+    adapterManager = await initAdapterManager()
+    await adapterManager.restoreCache()
+  }
+
   // Load plugins
   activity = reporter.activityTimer(`Load plugins`, {
     parentSpan,
@@ -228,17 +235,6 @@ export async function initialize({
   // @ts-ignore we'll need to fix redux typings https://redux.js.org/usage/usage-with-typescript
   store.dispatch(removeStaleJobs(store.getState().jobsV2))
 
-  // Multiple occurrences of the same name-version-pair can occur,
-  // so we report an array of unique pairs
-  const pluginsStr = _.uniq(flattenedPlugins.map(p => `${p.name}@${p.version}`))
-  telemetry.decorateEvent(`BUILD_END`, {
-    plugins: pluginsStr,
-  })
-
-  telemetry.decorateEvent(`DEVELOP_STOP`, {
-    plugins: pluginsStr,
-  })
-
   // Start plugin runner which listens to the store
   // and invokes Gatsby API based on actions.
   startPluginRunner()
@@ -281,7 +277,7 @@ export async function initialize({
     activity.start()
     const files = await glob(
       [
-        `public/**/*.{html,css}`,
+        `public/**/*.{html,css,mdb}`,
         `!public/page-data/**/*`,
         `!public/static`,
         `!public/static/**/*.{html,css}`,
@@ -432,6 +428,7 @@ export async function initialize({
         `!.cache/compiled`,
         // Add webpack
         `!.cache/webpack`,
+        `!.cache/adapters`,
       ]
 
       if (process.env.GATSBY_EXPERIMENTAL_PRESERVE_FILE_DOWNLOAD_CACHE) {
@@ -459,15 +456,6 @@ export async function initialize({
 
     // make sure all previous mutexes are released
     await releaseAllMutexes()
-
-    // in future this should show which plugin's caches are purged
-    // possibly should also have which plugins had caches
-    telemetry.decorateEvent(`BUILD_END`, {
-      pluginCachesPurged: [`*`],
-    })
-    telemetry.decorateEvent(`DEVELOP_STOP`, {
-      pluginCachesPurged: [`*`],
-    })
   }
 
   // Update the store with the new plugins hash.
@@ -618,9 +606,6 @@ export async function initialize({
   })
   activity.end()
 
-  // Track trailing slash option used in config
-  telemetry.trackFeatureIsUsed(`trailingSlash:${state.config.trailingSlash}`)
-
   // Collect resolvable extensions and attach to program.
   const extensions = [`.mjs`, `.js`, `.jsx`, `.wasm`, `.json`]
   // Change to this being an action and plugins implement `onPreBootstrap`
@@ -637,18 +622,7 @@ export async function initialize({
 
   const workerPool = WorkerPool.create()
 
-  const siteDirectoryFiles = await fs.readdir(siteDirectory)
-
-  const gatsbyFilesIsInESM = siteDirectoryFiles.some(file =>
-    file.match(/gatsby-(node|config)\.mjs/)
-  )
-
-  if (gatsbyFilesIsInESM) {
-    telemetry.trackFeatureIsUsed(`ESMInGatsbyFiles`)
-  }
-
   if (state.config.graphqlTypegen) {
-    telemetry.trackFeatureIsUsed(`GraphQLTypegen`)
     // This is only run during `gatsby develop`
     if (process.env.gatsby_executing_command === `develop`) {
       writeGraphQLConfig(program)
@@ -671,5 +645,6 @@ export async function initialize({
     store,
     workerPool,
     webhookBody: initialWebhookBody,
+    adapterManager,
   }
 }

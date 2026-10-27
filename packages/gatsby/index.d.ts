@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Renderer } from "react-dom"
 import { EventEmitter } from "events"
-import { WindowLocation, NavigateFn, NavigateOptions } from "@reach/router" // These come from `@types/reach__router`
+import { WindowLocation, NavigateOptions } from "@reach/router" // These come from `@types/reach__router`
 import { Reporter } from "gatsby-cli/lib/reporter/reporter"
 import { Span } from "opentracing"
 export { Reporter }
@@ -21,6 +21,8 @@ export type AvailableFeatures =
   | "image-cdn"
   | "graphql-typegen"
   | "content-file-path"
+  | "stateful-source-nodes"
+  | "adapters"
 
 export {
   Link,
@@ -31,6 +33,25 @@ export {
 } from "gatsby-link"
 
 export * from "gatsby-script"
+
+export {
+  AdapterInit,
+  IAdapter,
+  IStaticRoute,
+  IFunctionRoute,
+  IRedirectRoute,
+  IFunctionDefinition,
+  RoutesManifest,
+  HeaderRoutes,
+  FunctionsManifest,
+  IAdapterConfig,
+  ImageCdnUrlGeneratorFn,
+  ImageCdnSourceImage,
+  ImageCdnTransformArgs,
+  FileCdnUrlGeneratorFn,
+  FileCdnSourceImage,
+  RemoteFileAllowedUrls,
+} from "./dist/utils/adapter/types"
 
 export const useScrollRestoration: (key: string) => {
   ref: React.MutableRefObject<HTMLElement | undefined>
@@ -96,8 +117,6 @@ export type PageProps<
   uri: string
   /** An extended version of window.document which comes from @react/router */
   location: WindowLocation<LocationState>
-  /** A way to handle programmatically controlling navigation */
-  navigate: NavigateFn
   /** You can't get passed children as this is the root user-land component */
   children: undefined
   /** The URL parameters when the page has a `matchPath` */
@@ -319,6 +338,20 @@ type Proxy = {
   url: string
 }
 
+type Header = {
+  /**
+   * The path to match requests against.
+   */
+  source: string
+  /**
+   * Your custom response headers.
+   */
+  headers: Array<{
+    key: string
+    value: string
+  }>
+}
+
 /**
  * Gatsby configuration API.
  *
@@ -356,6 +389,16 @@ export interface GatsbyConfig {
   partytownProxiedURLs?: Array<string>
   /** Sometimes you need more granular/flexible access to the development server. Gatsby exposes the Express.js development server to your site’s gatsby-config.js where you can add Express middleware as needed. */
   developMiddleware?(app: any): void
+  /**
+   * You can set custom HTTP headers on the response of a given path. This allows you to, e.g. modify the caching behavior or configure access control. You can apply HTTP headers to static routes and redirects.
+   * @see http://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/headers/
+   */
+  headers?: Array<Header>
+  /**
+   * Adapters are responsible for taking the production output from Gatsby and turning it into something your deployment platform understands. They make it easier to build and deploy Gatsby on any deployment platform.
+   * @see http://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/adapters/
+   */
+  adapter?: IAdapter
 }
 
 /**
@@ -1463,10 +1506,25 @@ export interface Actions {
 
   printTypeDefinitions(
     this: void,
-    path?: string,
-    include?: { types?: Array<string>; plugins?: Array<string> },
-    exclude?: { types?: Array<string>; plugins?: Array<string> },
-    withFieldTypes?: boolean,
+    options: {
+      path?: string
+      include?: { types?: Array<string>; plugins?: Array<string> }
+      exclude?: { types?: Array<string>; plugins?: Array<string> }
+      withFieldTypes?: boolean
+    },
+    plugin?: ActionPlugin,
+    traceId?: string
+  ): void
+
+  /**
+   * Marks the source plugin that called this function as stateful. Gatsby will not check for stale nodes for any plugin that calls this.
+   */
+  enableStatefulSourceNodes?(this: void, plugin?: ActionPlugin): void
+
+  /** @see https://www.gatsbyjs.com/docs/actions/#addRemoteFileAllowedUrl */
+  addRemoteFileAllowedUrl?(
+    this: void,
+    url: string | Array<string>,
     plugin?: ActionPlugin,
     traceId?: string
   ): void
@@ -1811,6 +1869,10 @@ export interface GatsbyFunctionRequest<ReqBody = any> extends IncomingMessage {
    * Object of `cookies` from header
    */
   cookies: Record<string, string>
+  /**
+   * Optional field to store the full raw URL by adapters
+   */
+  rawUrl?: string
 }
 
 export interface GatsbyFunctionBodyParserCommonMiddlewareConfig {

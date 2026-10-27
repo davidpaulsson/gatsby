@@ -25,7 +25,7 @@ Reasons to fetch certain data at build time vs. client runtime will vary, but in
 
 In order to fetch data at build time, you can use a source plugin or source data yourself. To source data yourself you can create an integration with a third-party system by creating [nodes for the GraphQL layer](/docs/node-creation/) in your `gatsby-node` file from retrieved data that becomes queryable in pages. This is the same method that source plugins implement to [source data](/docs/content-and-data/) while the site builds. You can read about that process in the [Creating a Source Plugin guide](/docs/how-to/plugins-and-themes/creating-a-source-plugin/).
 
-> This process of fetching data at build time and creating pages from the data is [covered in more depth in the tutorial](/docs/tutorial/part-5/) as well as the docs for [creating pages from data programmatically](/docs/programmatically-create-pages-from-data/).
+> This process of fetching data at build time and creating pages from the data is [covered in more depth in the tutorial](/docs/tutorial/getting-started/part-5/) as well as the docs for [creating pages from data programmatically](/docs/programmatically-create-pages-from-data/).
 
 #### Source data to be queried at build time
 
@@ -215,7 +215,6 @@ The repo's star count is fetched at runtime; if you refresh the page, this numbe
 You may be interested in other projects (both used in production and proof-of-concepts) that illustrate this usage:
 
 - [Live example][example site] of the code used in this guide
-- [Gatsby store](https://github.com/gatsbyjs/store.gatsbyjs.org): with static product pages at build time and client-side interactions for e-commerce features
 - [Gatsby mail](https://github.com/DSchau/gatsby-mail): a client-side email application
 - [Example repo fetching data using Apollo](https://github.com/jlengstorf/gatsby-with-apollo)
 

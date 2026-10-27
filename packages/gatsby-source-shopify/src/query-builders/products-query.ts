@@ -39,16 +39,7 @@ export class ProductsQuery extends BulkQuery {
                 width
               }
               featuredMedia {
-                ... on ExternalVideo {
-                  id
-                }
-                ... on MediaImage {
-                  id
-                }
-                ... on Model3d {
-                  id
-                }
-                ... on Video {
+                ... on Node {
                   id
                 }
               }
@@ -160,7 +151,10 @@ export class ProductsQuery extends BulkQuery {
                   }
                 }
               }
-              mediaCount
+              mediaCount {
+                count
+                precision
+              }
               metafields {
                 edges {
                   node {
@@ -209,7 +203,10 @@ export class ProductsQuery extends BulkQuery {
               productType
               publishedAt
               requiresSellingPlan
-              sellingPlanGroupCount
+              sellingPlanGroupsCount {
+                count
+                precision
+              }
               seo {
                 description
                 title

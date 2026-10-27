@@ -23,7 +23,7 @@ import fetchReferencedMediaItemsAndCreateNodes, {
   stripImageSizesFromUrl,
 } from "../fetch-nodes/fetch-referenced-media-items"
 import { b64e } from "~/utils/string-encoding"
-import store from "~/store"
+import { getStore } from "~/store"
 
 import { store as gatsbyStore } from "gatsby/dist/redux"
 
@@ -170,7 +170,7 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
   wpUrl,
 }) => {
   // get all the image nodes we've cached from elsewhere
-  const { nodeMetaByUrl } = store.getState().imageNodes
+  const { nodeMetaByUrl } = getStore().getState().imageNodes
 
   const previouslyCachedNodesByUrl = (
     await Promise.all(
@@ -421,7 +421,7 @@ const copyFileToStaticAndReturnUrlPath = async (fileNode, helpers) => {
 const cacheCreatedFileNodeBySrc = ({ node, src }) => {
   if (node) {
     // save any fetched media items in our global media item cache
-    store.dispatch.imageNodes.pushNodeMeta({
+    getStore().dispatch.imageNodes.pushNodeMeta({
       sourceUrl: src,
       id: node.id,
       modifiedGmt: node.modifiedGmt,
@@ -670,7 +670,8 @@ export const replaceNodeHtmlImages = async ({
       ) {
         gatsbyImageHydrationData = {
           image: imageResize,
-          alt: cheerioImg?.attribs?.alt,
+          // Wordpress tells users to leave "alt" empty if image is decorative. But it returns undefined, not ``
+          alt: cheerioImg?.attribs?.alt ?? ``,
           className: `${
             cheerioImg?.attribs?.class || ``
           } inline-gatsby-image-wrapper`,
@@ -686,7 +687,8 @@ export const replaceNodeHtmlImages = async ({
           `img`,
           {
             src: publicUrl,
-            alt: cheerioImg?.attribs?.alt,
+            // Wordpress tells users to leave "alt" empty if image is decorative. But it returns undefined, not ``
+            alt: cheerioImg?.attribs?.alt ?? ``,
             className: `${
               cheerioImg?.attribs?.class || ``
             } inline-gatsby-image-wrapper`,

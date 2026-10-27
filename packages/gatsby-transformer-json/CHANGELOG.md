@@ -3,6 +3,84 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.16.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-transformer-json@5.16.0/packages/gatsby-transformer-json) (2026-01-26)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.16)
+
+#### Bug Fixes
+
+- use more explicit node.js version range [#39398](https://github.com/gatsbyjs/gatsby/issues/39398) ([c355640](https://github.com/gatsbyjs/gatsby/commit/c35564071466681951402a04fb33ae34cc673a2b))
+
+#### Other Changes
+
+- Revert "chore(release): Publish next pre-minor" ([3539ec8](https://github.com/gatsbyjs/gatsby/commit/3539ec8d8973e8eabbeb10734e3bb54bd831ac6c))
+
+## [5.15.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-transformer-json@5.15.0/packages/gatsby-transformer-json) (2025-08-27)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.15)
+
+**Note:** Version bump only for package gatsby-transformer-json
+
+## [5.14.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-transformer-json@5.14.0/packages/gatsby-transformer-json) (2024-11-06)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.14)
+
+**Note:** Version bump only for package gatsby-transformer-json
+
+### [5.13.1](https://github.com/gatsbyjs/gatsby/commits/gatsby-transformer-json@5.13.1/packages/gatsby-transformer-json) (2024-01-23)
+
+**Note:** Version bump only for package gatsby-transformer-json
+
+## [5.13.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-transformer-json@5.13.0/packages/gatsby-transformer-json) (2023-12-18)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.13)
+
+**Note:** Version bump only for package gatsby-transformer-json
+
+## [5.12.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-transformer-json@5.12.0/packages/gatsby-transformer-json) (2023-08-24)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.12)
+
+**Note:** Version bump only for package gatsby-transformer-json
+
+## [5.11.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-transformer-json@5.11.0/packages/gatsby-transformer-json) (2023-06-15)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.11)
+
+**Note:** Version bump only for package gatsby-transformer-json
+
+## [5.10.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-transformer-json@5.10.0/packages/gatsby-transformer-json) (2023-05-16)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.10)
+
+**Note:** Version bump only for package gatsby-transformer-json
+
+## [5.9.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-transformer-json@5.9.0/packages/gatsby-transformer-json) (2023-04-18)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.9)
+
+**Note:** Version bump only for package gatsby-transformer-json
+
+## [5.8.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-transformer-json@5.8.0/packages/gatsby-transformer-json) (2023-03-21)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.8)
+
+**Note:** Version bump only for package gatsby-transformer-json
+
+## [5.7.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-transformer-json@5.7.0/packages/gatsby-transformer-json) (2023-02-21)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.7)
+
+**Note:** Version bump only for package gatsby-transformer-json
+
+## [5.6.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-transformer-json@5.6.0/packages/gatsby-transformer-json) (2023-02-07)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.6)
+
+#### Bug Fixes
+
+- update babel monorepo [#37568](https://github.com/gatsbyjs/gatsby/issues/37568) ([13a0a9e](https://github.com/gatsbyjs/gatsby/commit/13a0a9e83dcb015b65dff6b73cdd5dea09c2988f))
+
 ## [5.5.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-transformer-json@5.5.0/packages/gatsby-transformer-json) (2023-01-24)
 
 [🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.5)

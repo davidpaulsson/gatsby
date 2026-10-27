@@ -3,6 +3,128 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.16.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-image@3.16.0/packages/gatsby-plugin-image) (2026-01-26)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.16)
+
+#### Features
+
+- support React 19 [#39306](https://github.com/gatsbyjs/gatsby/issues/39306) ([9e39c05](https://github.com/gatsbyjs/gatsby/commit/9e39c05f2c48aedfc495421367e67ee4bcbf1c4a))
+
+#### Other Changes
+
+- Revert "chore(release): Publish next pre-minor" ([3539ec8](https://github.com/gatsbyjs/gatsby/commit/3539ec8d8973e8eabbeb10734e3bb54bd831ac6c))
+
+## [3.15.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-image@3.15.0/packages/gatsby-plugin-image) (2025-08-27)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.15)
+
+#### Bug Fixes
+
+- update dependency chokidar to ^3.6.0 [#39174](https://github.com/gatsbyjs/gatsby/issues/39174) ([5717252](https://github.com/gatsbyjs/gatsby/commit/571725239b77f2b0604b43be3e1aaaf9cda4a5d8))
+
+## [3.14.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-image@3.14.0/packages/gatsby-plugin-image) (2024-11-06)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.14)
+
+#### Bug Fixes
+
+- update dependency fs-extra to ^11.2.0 [#38727](https://github.com/gatsbyjs/gatsby/issues/38727) ([cb33fe5](https://github.com/gatsbyjs/gatsby/commit/cb33fe5d02b3a42cf629baf948a7aae7a9e7dd0f))
+
+### [3.13.1](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-image@3.13.1/packages/gatsby-plugin-image) (2024-01-23)
+
+**Note:** Version bump only for package gatsby-plugin-image
+
+## [3.13.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-image@3.13.0/packages/gatsby-plugin-image) (2023-12-18)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.13)
+
+**Note:** Version bump only for package gatsby-plugin-image
+
+### [3.12.3](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-image@3.12.3/packages/gatsby-plugin-image) (2023-10-26)
+
+**Note:** Version bump only for package gatsby-plugin-image
+
+### [3.12.2](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-image@3.12.2/packages/gatsby-plugin-image) (2023-10-20)
+
+**Note:** Version bump only for package gatsby-plugin-image
+
+### [3.12.1](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-image@3.12.1/packages/gatsby-plugin-image) (2023-10-09)
+
+**Note:** Version bump only for package gatsby-plugin-image
+
+## [3.12.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-image@3.12.0/packages/gatsby-plugin-image) (2023-08-24)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.12)
+
+#### Features
+
+- Adapters [#38232](https://github.com/gatsbyjs/gatsby/issues/38232) ([b2d4aef](https://github.com/gatsbyjs/gatsby/commit/b2d4aefa7716e3ef02a19b530a8a7e4678d086e1))
+
+#### Bug Fixes
+
+- update dependency semver to ^7.5.3 [#38296](https://github.com/gatsbyjs/gatsby/issues/38296) ([11e64e2](https://github.com/gatsbyjs/gatsby/commit/11e64e20898cc97289bdbda00eb4bcc309828b23))
+- update typescript [#38324](https://github.com/gatsbyjs/gatsby/issues/38324) ([5d0d7c1](https://github.com/gatsbyjs/gatsby/commit/5d0d7c12552fa7570bad2002806bca3d18f923de))
+
+## [3.11.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-image@3.11.0/packages/gatsby-plugin-image) (2023-06-15)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.11)
+
+#### Bug Fixes
+
+- update typescript [#38133](https://github.com/gatsbyjs/gatsby/issues/38133) ([aa7a078](https://github.com/gatsbyjs/gatsby/commit/aa7a078383ca5a549743be3269e9bde44655a185))
+
+#### Chores
+
+- update semver [#38171](https://github.com/gatsbyjs/gatsby/issues/38171) ([208cdef](https://github.com/gatsbyjs/gatsby/commit/208cdef13f6488251ba1810a57a1e28c38635631))
+
+## [3.10.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-image@3.10.0/packages/gatsby-plugin-image) (2023-05-16)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.10)
+
+#### Bug Fixes
+
+- update dependency semver to ^7.5.0 [#38023](https://github.com/gatsbyjs/gatsby/issues/38023) ([2564f6b](https://github.com/gatsbyjs/gatsby/commit/2564f6b247b622b51522ff1f91fe2a9ef34fa571))
+
+## [3.9.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-image@3.9.0/packages/gatsby-plugin-image) (2023-04-18)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.9)
+
+#### Bug Fixes
+
+- update dependency fs-extra to ^11.1.1 [#37827](https://github.com/gatsbyjs/gatsby/issues/37827) ([3e9a590](https://github.com/gatsbyjs/gatsby/commit/3e9a590fdc0b4cdbc763b6a6e3ca3e983ac8231a))
+- update typescript to v5 (major) [#37906](https://github.com/gatsbyjs/gatsby/issues/37906) ([3859ba6](https://github.com/gatsbyjs/gatsby/commit/3859ba6ce629e658525f858a8799b08c34c3eda5))
+
+#### Chores
+
+- update typescript [#37848](https://github.com/gatsbyjs/gatsby/issues/37848) ([9f92796](https://github.com/gatsbyjs/gatsby/commit/9f92796070b0e73fa92089af93de376c9be9021e))
+- update [dev] minor and patch dependencies for gatsby-plugin-image [#37816](https://github.com/gatsbyjs/gatsby/issues/37816) ([67a4a88](https://github.com/gatsbyjs/gatsby/commit/67a4a888e23bbe53e954823d9d549d3bc3c66124))
+
+## [3.8.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-image@3.8.0/packages/gatsby-plugin-image) (2023-03-21)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.8)
+
+**Note:** Version bump only for package gatsby-plugin-image
+
+## [3.7.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-image@3.7.0/packages/gatsby-plugin-image) (2023-02-21)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.7)
+
+**Note:** Version bump only for package gatsby-plugin-image
+
+## [3.6.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-image@3.6.0/packages/gatsby-plugin-image) (2023-02-07)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.6)
+
+#### Bug Fixes
+
+- update babel monorepo [#37568](https://github.com/gatsbyjs/gatsby/issues/37568) ([13a0a9e](https://github.com/gatsbyjs/gatsby/commit/13a0a9e83dcb015b65dff6b73cdd5dea09c2988f))
+
+#### Chores
+
+- update [dev] minor and patch dependencies for gatsby-plugin-image [#37584](https://github.com/gatsbyjs/gatsby/issues/37584) ([c997776](https://github.com/gatsbyjs/gatsby/commit/c997776da4b4ad897318c7474865835288990d1c))
+- update typescript [#37596](https://github.com/gatsbyjs/gatsby/issues/37596) ([4f1d1f2](https://github.com/gatsbyjs/gatsby/commit/4f1d1f260472d7768b57960b1e274c8755ca5a67))
+
 ## [3.5.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-image@3.5.0/packages/gatsby-plugin-image) (2023-01-24)
 
 [🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.5)

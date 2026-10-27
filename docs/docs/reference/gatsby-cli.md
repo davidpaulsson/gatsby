@@ -10,7 +10,7 @@ The Gatsby command line interface (CLI) is the main tool you use to initialize, 
 To use the Gatsby CLI you must either:
 
 - Install it globally with `npm install -g gatsby-cli`, where you execute commands with the syntax `gatsby new`, or
-- Run commands directly with [`npx`](https://nodejs.dev/en/learn/the-npx-nodejs-package-runner/), where you execute commands with the syntax `npx gatsby new`
+- Run commands directly with [`npx`](https://www.npmjs.com/package/npx), where you execute commands with the syntax `npx gatsby new`
 
 Useful Gatsby CLI commands are also pre-defined in [starters](/docs/starters/) as [run scripts](/docs/glossary#run-script).
 
@@ -55,6 +55,7 @@ Options include:
 | `-o`, `--open`  | Open the site in your (default) browser for you |
 | `-S`, `--https` | Use HTTPS                                       |
 | `--inspect`     | Opens a port for debugging                      |
+| `--verbose`     | Turn on verbose output                          |
 
 To set up HTTPS, follow the [Local HTTPS guide](/docs/local-https/).
 
@@ -93,6 +94,7 @@ Options include:
 | `--open-tracing-config-file` | Tracer configuration file (OpenTracing compatible). See [Performance Tracing](/docs/performance-tracing/)                                    |
 | `--graphql-tracing`          | Trace (see above) every graphql resolver, may have performance implications.                                                                 |
 | `--no-color`, `--no-colors`  | Disables colored terminal output                                                                                                             |
+| `--verbose`                  | Turn on verbose output                                                                                                                       |
 
 In addition to these build options, there are some optional [build environment variables](/docs/how-to/local-development/environment-variables/#build-variables) for more advanced configurations that can adjust how a build runs. For example, setting `CI=true` as an environment variable will tailor output for [dumb terminals](https://en.wikipedia.org/wiki/Computer_terminal#Dumb_terminals).
 

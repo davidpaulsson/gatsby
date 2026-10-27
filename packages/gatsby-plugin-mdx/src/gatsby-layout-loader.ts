@@ -59,7 +59,7 @@ const gatsbyLayoutLoader: LoaderDefinition = async function (
 
   try {
     const tree = acorn.Parser.extend(JSX()).parse(source, {
-      ecmaVersion: 2020,
+      ecmaVersion: `latest`,
       sourceType: `module`,
       locations: true,
     })
@@ -99,6 +99,7 @@ const gatsbyLayoutLoader: LoaderDefinition = async function (
         type: `Literal`,
         value: slash(mdxPath),
       },
+      attributes: [],
     })
 
     let hasClassicReactImport = false

@@ -3,6 +3,121 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.16.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-core-utils@4.16.0/packages/gatsby-core-utils) (2026-01-26)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.16)
+
+#### Bug Fixes
+
+- use more explicit node.js version range [#39398](https://github.com/gatsbyjs/gatsby/issues/39398) ([c355640](https://github.com/gatsbyjs/gatsby/commit/c35564071466681951402a04fb33ae34cc673a2b))
+
+#### Other Changes
+
+- Revert "chore(release): Publish next pre-minor" ([3539ec8](https://github.com/gatsbyjs/gatsby/commit/3539ec8d8973e8eabbeb10734e3bb54bd831ac6c))
+
+## [4.15.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-core-utils@4.15.0/packages/gatsby-core-utils) (2025-08-27)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.15)
+
+**Note:** Version bump only for package gatsby-core-utils
+
+## [4.14.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-core-utils@4.14.0/packages/gatsby-core-utils) (2024-11-06)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.14)
+
+#### Bug Fixes
+
+- update dependency hash-wasm to ^4.11.0 for gatsby-core-utils [#38678](https://github.com/gatsbyjs/gatsby/issues/38678) ([f8ce66e](https://github.com/gatsbyjs/gatsby/commit/f8ce66e751ccb4d998fc884b7b530acbac7c590c))
+- update dependency fs-extra to ^11.2.0 [#38727](https://github.com/gatsbyjs/gatsby/issues/38727) ([cb33fe5](https://github.com/gatsbyjs/gatsby/commit/cb33fe5d02b3a42cf629baf948a7aae7a9e7dd0f))
+
+### [4.13.1](https://github.com/gatsbyjs/gatsby/commits/gatsby-core-utils@4.13.1/packages/gatsby-core-utils) (2024-01-23)
+
+**Note:** Version bump only for package gatsby-core-utils
+
+## [4.13.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-core-utils@4.13.0/packages/gatsby-core-utils) (2023-12-18)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.13)
+
+#### Bug Fixes
+
+- respect 'force' and 'conditions' properties on redirects [#38657](https://github.com/gatsbyjs/gatsby/issues/38657) ([48d311e](https://github.com/gatsbyjs/gatsby/commit/48d311e71f7ab6865b0615f6f291764b4b04a874))
+
+### [4.12.1](https://github.com/gatsbyjs/gatsby/commits/gatsby-core-utils@4.12.1/packages/gatsby-core-utils) (2023-10-26)
+
+#### Bug Fixes
+
+- respect 'force' and 'conditions' properties on redirects [#38657](https://github.com/gatsbyjs/gatsby/issues/38657) [#38664](https://github.com/gatsbyjs/gatsby/issues/38664) ([c43080f](https://github.com/gatsbyjs/gatsby/commit/c43080f49fe54022be141855db4e56d98398338c))
+
+## [4.12.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-core-utils@4.12.0/packages/gatsby-core-utils) (2023-08-24)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.12)
+
+#### Bug Fixes
+
+- update typescript [#38324](https://github.com/gatsbyjs/gatsby/issues/38324) ([5d0d7c1](https://github.com/gatsbyjs/gatsby/commit/5d0d7c12552fa7570bad2002806bca3d18f923de))
+
+#### Chores
+
+- update dependency msw to ^1.2.2 for gatsby-core-utils [#38283](https://github.com/gatsbyjs/gatsby/issues/38283) ([ada5fef](https://github.com/gatsbyjs/gatsby/commit/ada5fef39da6b48bac899243715472311b6343df))
+
+## [4.11.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-core-utils@4.11.0/packages/gatsby-core-utils) (2023-06-15)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.11)
+
+#### Bug Fixes
+
+- update typescript [#38133](https://github.com/gatsbyjs/gatsby/issues/38133) ([aa7a078](https://github.com/gatsbyjs/gatsby/commit/aa7a078383ca5a549743be3269e9bde44655a185))
+
+#### Chores
+
+- Various `yarn bootstrap` fixes fixes [#38223](https://github.com/gatsbyjs/gatsby/issues/38223) ([df12265](https://github.com/gatsbyjs/gatsby/commit/df1226576b911be0f962c149c0bcbad279d9f806))
+
+## [4.10.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-core-utils@4.10.0/packages/gatsby-core-utils) (2023-05-16)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.10)
+
+**Note:** Version bump only for package gatsby-core-utils
+
+## [4.9.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-core-utils@4.9.0/packages/gatsby-core-utils) (2023-04-18)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.9)
+
+#### Bug Fixes
+
+- update minor and patch dependencies for gatsby-core-utils [#37836](https://github.com/gatsbyjs/gatsby/issues/37836) ([f364450](https://github.com/gatsbyjs/gatsby/commit/f364450256d6930065b0cce539ee22410309e549))
+- update dependency fs-extra to ^11.1.1 [#37827](https://github.com/gatsbyjs/gatsby/issues/37827) ([3e9a590](https://github.com/gatsbyjs/gatsby/commit/3e9a590fdc0b4cdbc763b6a6e3ca3e983ac8231a))
+- update typescript to v5 (major) [#37906](https://github.com/gatsbyjs/gatsby/issues/37906) ([3859ba6](https://github.com/gatsbyjs/gatsby/commit/3859ba6ce629e658525f858a8799b08c34c3eda5))
+
+#### Chores
+
+- update typescript [#37848](https://github.com/gatsbyjs/gatsby/issues/37848) ([9f92796](https://github.com/gatsbyjs/gatsby/commit/9f92796070b0e73fa92089af93de376c9be9021e))
+- update dependency msw to v1 for gatsby-core-utils [#37895](https://github.com/gatsbyjs/gatsby/issues/37895) ([1b55deb](https://github.com/gatsbyjs/gatsby/commit/1b55debc0d72a2dc3ae82b043e6bbab8d40eac57))
+
+## [4.8.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-core-utils@4.8.0/packages/gatsby-core-utils) (2023-03-21)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.8)
+
+**Note:** Version bump only for package gatsby-core-utils
+
+## [4.7.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-core-utils@4.7.0/packages/gatsby-core-utils) (2023-02-21)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.7)
+
+**Note:** Version bump only for package gatsby-core-utils
+
+## [4.6.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-core-utils@4.6.0/packages/gatsby-core-utils) (2023-02-07)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.6)
+
+#### Bug Fixes
+
+- update babel monorepo [#37568](https://github.com/gatsbyjs/gatsby/issues/37568) ([13a0a9e](https://github.com/gatsbyjs/gatsby/commit/13a0a9e83dcb015b65dff6b73cdd5dea09c2988f))
+
+#### Chores
+
+- update dependency msw to ^0.49.3 for gatsby-core-utils [#37564](https://github.com/gatsbyjs/gatsby/issues/37564) ([d8d9d61](https://github.com/gatsbyjs/gatsby/commit/d8d9d612b268788544f02ad93fe370c52586a5d6))
+- update typescript [#37596](https://github.com/gatsbyjs/gatsby/issues/37596) ([4f1d1f2](https://github.com/gatsbyjs/gatsby/commit/4f1d1f260472d7768b57960b1e274c8755ca5a67))
+
 ## [4.5.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-core-utils@4.5.0/packages/gatsby-core-utils) (2023-01-24)
 
 [🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.5)

@@ -67,7 +67,7 @@ const errors: Record<string, IErrorMapEntry> = {
   },
   "98001": {
     text: (): string =>
-      `Built Rendering Engines failed validation failed validation.\n\nPlease open an issue with a reproduction at https://gatsby.dev/new-issue for more help.`,
+      `Built Rendering Engines failed validation.\n\nPlease open an issue with a reproduction at https://gatsby.dev/new-issue for more help.`,
     type: Type.ENGINE_VALIDATION,
     level: Level.ERROR,
     category: ErrorCategory.UNKNOWN,
@@ -82,6 +82,12 @@ const errors: Record<string, IErrorMapEntry> = {
     type: Type.ENGINE_COMPILATION,
     level: Level.ERROR,
     category: ErrorCategory.USER,
+  },
+  "98051": {
+    text: (): string => `Built Rendering Engines failed to load.`,
+    type: Type.ENGINE_EXECUTION,
+    level: Level.ERROR,
+    category: ErrorCategory.UNKNOWN,
   },
   "98123": {
     text: (context): string =>
@@ -917,6 +923,28 @@ const errors: Record<string, IErrorMapEntry> = {
     type: Type.API_TYPESCRIPT_TYPEGEN,
     category: ErrorCategory.USER,
     docsUrl: `https://gatsby.dev/graphql-typegen`,
+  },
+  // Gatsby Adapters
+  "12200": {
+    text: (): string =>
+      `Tried to create adapter routes for webpack assets but failed. If the issue persists, please open an issue with a reproduction at https://gatsby.dev/bug-report for more help.`,
+    level: Level.ERROR,
+    type: Type.ADAPTER,
+    category: ErrorCategory.SYSTEM,
+  },
+  // Currently not used, as the error was turned into warning
+  // Might be used in next major version of gatsby, but we still have to keep it
+  // because older gatsby versions might try to use this error ID
+  "12201": {
+    text: (context): string =>
+      `Adapter "${
+        context.adapterName
+      }" is not compatible with following settings:\n${context.incompatibleFeatures
+        .map(line => ` - ${line}`)
+        .join(`\n`)}`,
+    level: Level.ERROR,
+    type: Type.ADAPTER,
+    category: ErrorCategory.THIRD_PARTY,
   },
   // Partial hydration
   "80000": {

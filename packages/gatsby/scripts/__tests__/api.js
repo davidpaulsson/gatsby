@@ -12,6 +12,7 @@ it("generates the expected api output", done => {
       Object {
         "browser": Object {
           "disableCorePrefetching": Object {},
+          "onCaughtError": Object {},
           "onClientEntry": Object {},
           "onInitialClientRender": Object {},
           "onPostPrefetchPathname": Object {},
@@ -24,6 +25,7 @@ it("generates the expected api output", done => {
           "onServiceWorkerRedundant": Object {},
           "onServiceWorkerUpdateFound": Object {},
           "onServiceWorkerUpdateReady": Object {},
+          "onUncaughtError": Object {},
           "registerServiceWorker": Object {},
           "replaceHydrateFunction": Object {},
           "shouldUpdateScroll": Object {},
@@ -35,6 +37,8 @@ it("generates the expected api output", done => {
           "graphql-typegen",
           "content-file-path",
           "slices",
+          "stateful-source-nodes",
+          "adapters",
         ],
         "node": Object {
           "createPages": Object {},

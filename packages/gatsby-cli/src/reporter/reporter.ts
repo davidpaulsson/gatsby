@@ -1,6 +1,5 @@
 import { stripIndent } from "common-tags"
 import chalk from "chalk"
-import { trackError } from "gatsby-telemetry"
 import { globalTracer, Span, SpanContext } from "opentracing"
 
 import * as reduxReporterActions from "./redux/actions"
@@ -39,6 +38,7 @@ export interface IActivityArgs {
   tags?: { [key: string]: any }
 }
 
+// eslint-disable-next-line prefer-const
 let isVerbose = isTruthy(process.env.GATSBY_REPORTER_ISVERBOSE)
 
 function isLogIntentMessage(msg: any): msg is ILogIntent {
@@ -108,8 +108,7 @@ class Reporter {
     error?: Error | Array<Error>,
     pluginName?: string
   ): never => {
-    const reporterError = this.error(errorMeta, error, pluginName)
-    trackError(`GENERAL_PANIC`, { error: reporterError })
+    this.error(errorMeta, error, pluginName)
     prematureEnd()
     return process.exit(1)
   }
@@ -120,7 +119,6 @@ class Reporter {
     pluginName?: string
   ): IStructuredError | Array<IStructuredError> => {
     const reporterError = this.error(errorMeta, error, pluginName)
-    trackError(`BUILD_PANIC`, { error: reporterError })
     if (process.env.gatsby_executing_command === `build`) {
       prematureEnd()
       process.exit(1)
@@ -193,7 +191,6 @@ class Reporter {
 
     if (structuredError) {
       reporterActions.createLog(structuredError)
-      trackError(`GENERIC_ERROR`, { error: structuredError })
     }
 
     // TODO: remove this once Error component can render this info
@@ -243,7 +240,8 @@ class Reporter {
    */
   activityTimer = (
     text: string,
-    activityArgs: IActivityArgs = {}
+    activityArgs: IActivityArgs = {},
+    pluginName?: string
   ): ITimerReporter => {
     let { parentSpan, id, tags } = activityArgs
     const spanArgs = parentSpan ? { childOf: parentSpan, tags } : { tags }
@@ -259,6 +257,7 @@ class Reporter {
       span,
       reporter: this,
       reporterActions,
+      pluginName,
     })
   }
 
@@ -294,7 +293,8 @@ class Reporter {
     text: string,
     total = 0,
     start = 0,
-    activityArgs: IActivityArgs = {}
+    activityArgs: IActivityArgs = {},
+    pluginName?: string
   ): IProgressReporter => {
     let { parentSpan, id, tags } = activityArgs
     const spanArgs = parentSpan ? { childOf: parentSpan, tags } : { tags }
@@ -311,6 +311,7 @@ class Reporter {
       span,
       reporter: this,
       reporterActions,
+      pluginName,
     })
   }
 

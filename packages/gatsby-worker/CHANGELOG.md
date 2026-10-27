@@ -3,6 +3,110 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.16.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-worker@2.16.0/packages/gatsby-worker) (2026-01-26)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.16)
+
+#### Bug Fixes
+
+- use more explicit node.js version range [#39398](https://github.com/gatsbyjs/gatsby/issues/39398) ([c355640](https://github.com/gatsbyjs/gatsby/commit/c35564071466681951402a04fb33ae34cc673a2b))
+
+#### Other Changes
+
+- Revert "chore(release): Publish next pre-minor" ([3539ec8](https://github.com/gatsbyjs/gatsby/commit/3539ec8d8973e8eabbeb10734e3bb54bd831ac6c))
+
+## [2.15.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-worker@2.15.0/packages/gatsby-worker) (2025-08-27)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.15)
+
+**Note:** Version bump only for package gatsby-worker
+
+## [2.14.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-worker@2.14.0/packages/gatsby-worker) (2024-11-06)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.14)
+
+#### Bug Fixes
+
+- update dependency fs-extra to ^11.2.0 [#38727](https://github.com/gatsbyjs/gatsby/issues/38727) ([cb33fe5](https://github.com/gatsbyjs/gatsby/commit/cb33fe5d02b3a42cf629baf948a7aae7a9e7dd0f))
+
+### [2.13.1](https://github.com/gatsbyjs/gatsby/commits/gatsby-worker@2.13.1/packages/gatsby-worker) (2024-01-23)
+
+**Note:** Version bump only for package gatsby-worker
+
+## [2.13.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-worker@2.13.0/packages/gatsby-worker) (2023-12-18)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.13)
+
+#### Chores
+
+- update dependency rimraf to ^5.0.5 for gatsby-worker [#38598](https://github.com/gatsbyjs/gatsby/issues/38598) ([31272e9](https://github.com/gatsbyjs/gatsby/commit/31272e99c157c2e0dea334a037ea4b9dea623b31))
+
+## [2.12.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-worker@2.12.0/packages/gatsby-worker) (2023-08-24)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.12)
+
+#### Bug Fixes
+
+- update typescript [#38324](https://github.com/gatsbyjs/gatsby/issues/38324) ([5d0d7c1](https://github.com/gatsbyjs/gatsby/commit/5d0d7c12552fa7570bad2002806bca3d18f923de))
+
+## [2.11.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-worker@2.11.0/packages/gatsby-worker) (2023-06-15)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.11)
+
+#### Bug Fixes
+
+- update typescript [#38133](https://github.com/gatsbyjs/gatsby/issues/38133) ([aa7a078](https://github.com/gatsbyjs/gatsby/commit/aa7a078383ca5a549743be3269e9bde44655a185))
+
+#### Chores
+
+- update dependency rimraf to ^5.0.1 for gatsby-worker [#38146](https://github.com/gatsbyjs/gatsby/issues/38146) ([a6d49b1](https://github.com/gatsbyjs/gatsby/commit/a6d49b1c0d710502ffb86708e4f51c4fcb0f3f4a))
+
+## [2.10.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-worker@2.10.0/packages/gatsby-worker) (2023-05-16)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.10)
+
+#### Chores
+
+- update dependency rimraf to v5 for gatsby-worker [#38042](https://github.com/gatsbyjs/gatsby/issues/38042) ([9d90399](https://github.com/gatsbyjs/gatsby/commit/9d90399730e0fb0a4953f9ffdbd0ec264038af21))
+
+## [2.9.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-worker@2.9.0/packages/gatsby-worker) (2023-04-18)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.9)
+
+#### Bug Fixes
+
+- update dependency fs-extra to ^11.1.1 [#37827](https://github.com/gatsbyjs/gatsby/issues/37827) ([3e9a590](https://github.com/gatsbyjs/gatsby/commit/3e9a590fdc0b4cdbc763b6a6e3ca3e983ac8231a))
+- update typescript to v5 (major) [#37906](https://github.com/gatsbyjs/gatsby/issues/37906) ([3859ba6](https://github.com/gatsbyjs/gatsby/commit/3859ba6ce629e658525f858a8799b08c34c3eda5))
+
+#### Chores
+
+- update typescript [#37848](https://github.com/gatsbyjs/gatsby/issues/37848) ([9f92796](https://github.com/gatsbyjs/gatsby/commit/9f92796070b0e73fa92089af93de376c9be9021e))
+- update dependency rimraf to v4 for gatsby-worker [#37901](https://github.com/gatsbyjs/gatsby/issues/37901) ([c06f98c](https://github.com/gatsbyjs/gatsby/commit/c06f98cf5264c0657a76028e030fb27fd8a21854))
+
+## [2.8.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-worker@2.8.0/packages/gatsby-worker) (2023-03-21)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.8)
+
+**Note:** Version bump only for package gatsby-worker
+
+## [2.7.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-worker@2.7.0/packages/gatsby-worker) (2023-02-21)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.7)
+
+**Note:** Version bump only for package gatsby-worker
+
+## [2.6.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-worker@2.6.0/packages/gatsby-worker) (2023-02-07)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.6)
+
+#### Bug Fixes
+
+- update babel monorepo [#37568](https://github.com/gatsbyjs/gatsby/issues/37568) ([13a0a9e](https://github.com/gatsbyjs/gatsby/commit/13a0a9e83dcb015b65dff6b73cdd5dea09c2988f))
+
+#### Chores
+
+- update typescript [#37596](https://github.com/gatsbyjs/gatsby/issues/37596) ([4f1d1f2](https://github.com/gatsbyjs/gatsby/commit/4f1d1f260472d7768b57960b1e274c8755ca5a67))
+
 ## [2.5.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-worker@2.5.0/packages/gatsby-worker) (2023-01-24)
 
 [🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.5)

@@ -4,6 +4,7 @@ import styles from "./questions/styles.json"
 import features from "./questions/features.json"
 import languages from "./questions/languages.json"
 import { initStarter, getPackageManager, gitSetup } from "./init-starter"
+import { writeFiles, IFile } from "./write-files"
 import { installPlugins } from "./install-plugins"
 import colors from "ansi-colors"
 import path from "path"
@@ -11,7 +12,6 @@ import { plugin } from "./components/plugin"
 import { makePluginConfigQuestions } from "./plugin-options-form"
 import { center, wrap } from "./components/utils"
 import { stripIndent } from "common-tags"
-import { trackCli } from "./tracking"
 import { reporter } from "./utils/reporter"
 import { setSiteMetadata } from "./utils/site-metadata"
 import { makeNpmSafe } from "./utils/make-npm-safe"
@@ -19,7 +19,6 @@ import {
   generateQuestions,
   validateProjectName,
 } from "./utils/question-helpers"
-import { sha256, md5 } from "./utils/hash"
 import { maybeUseEmoji } from "./utils/emoji"
 import { parseArgs } from "./utils/parse-args"
 
@@ -27,7 +26,6 @@ export const DEFAULT_STARTERS: Record<keyof typeof languages, string> = {
   js: `https://github.com/gatsbyjs/gatsby-starter-minimal.git`,
   ts: `https://github.com/gatsbyjs/gatsby-starter-minimal-ts.git`,
 }
-
 interface IAnswers {
   name: string
   project: string
@@ -58,6 +56,14 @@ interface IPluginEntry {
    * Keys must match plugin names or name:key combinations from the plugins array
    */
   options?: PluginConfigMap
+  /**
+   * If the item is not a valid Gatsby plugin, set this to `false`
+   */
+  isGatsbyPlugin?: boolean
+  /**
+   * Additional files that should be written to the filesystem
+   */
+  files?: Array<IFile>
 }
 
 export type PluginMap = Record<string, IPluginEntry>
@@ -66,8 +72,6 @@ export type PluginConfigMap = Record<string, Record<string, unknown>>
 
 export async function run(): Promise<void> {
   const { flags, dirName } = parseArgs(process.argv.slice(2))
-
-  trackCli(`CREATE_GATSBY_START`)
 
   const { version } = require(`../package.json`)
 
@@ -112,7 +116,7 @@ ${center(colors.blueBright.bold.underline(`Welcome to Gatsby!`))}
       message: `What would you like to call your site?`,
       initial: `My Gatsby Site`,
       format: (value: string): string => colors.cyan(value),
-    } as any)
+    })
 
     npmSafeSiteName = makeNpmSafe(name)
     siteName = name
@@ -140,28 +144,6 @@ ${center(colors.blueBright.bold.underline(`Welcome to Gatsby!`))}
   if (flags.ts) {
     answers.language = `ts`
   }
-
-  // Telemetry
-  trackCli(`CREATE_GATSBY_SELECT_OPTION`, {
-    name: `project_name`,
-    valueString: sha256(answers.project),
-  })
-  trackCli(`CREATE_GATSBY_SELECT_OPTION`, {
-    name: `LANGUAGE`,
-    valueString: answers.language,
-  })
-  trackCli(`CREATE_GATSBY_SELECT_OPTION`, {
-    name: `CMS`,
-    valueString: answers.cms || `none`,
-  })
-  trackCli(`CREATE_GATSBY_SELECT_OPTION`, {
-    name: `CSS_TOOLS`,
-    valueString: answers.styling || `none`,
-  })
-  trackCli(`CREATE_GATSBY_SELECT_OPTION`, {
-    name: `PLUGIN`,
-    valueStringArray: answers.features || [],
-  })
 
   // Collect a report of things we will do to present to the user once the questions are complete
   const messages: Array<string> = [
@@ -203,8 +185,12 @@ ${center(colors.blueBright.bold.underline(`Welcome to Gatsby!`))}
       )} for styling your site`
     )
     const extraPlugins = styles[answers.styling].plugins || []
-
-    plugins.push(answers.styling, ...extraPlugins)
+    // If the key is not a valid Gatsby plugin, don't add it to the plugins array
+    if (styles[answers.styling]?.isGatsbyPlugin === false) {
+      plugins.push(...extraPlugins)
+    } else {
+      plugins.push(answers.styling, ...extraPlugins)
+    }
     packages.push(
       answers.styling,
       ...(styles[answers.styling].dependencies || []),
@@ -251,14 +237,10 @@ ${center(colors.blueBright.bold.underline(`Welcome to Gatsby!`))}
       `\nGreat! A few of the selections you made need to be configured. Please fill in the options for each plugin now:\n`
     )
 
-    trackCli(`CREATE_GATSBY_SET_PLUGINS_START`)
-
     const enquirer = new Enquirer<Record<string, Record<string, unknown>>>()
     enquirer.use(plugin)
 
     pluginConfig = { ...pluginConfig, ...(await enquirer.prompt(config)) }
-
-    trackCli(`CREATE_GATSBY_SET_PLUGINS_STOP`)
   }
 
   // If we're not skipping prompts, give the user a report of what we're about to do
@@ -279,8 +261,6 @@ ${colors.bold(`Thanks! Here's what we'll now do:`)}
     })
 
     if (!confirm) {
-      trackCli(`CREATE_GATSBY_CANCEL`)
-
       reporter.info(`OK, bye!`)
       return
     }
@@ -305,6 +285,12 @@ ${colors.bold(`Thanks! Here's what we'll now do:`)}
     reporter.info(`${maybeUseEmoji(`🔌 `)}Setting-up plugins...`)
     await installPlugins(plugins, pluginConfig, fullPath, [])
   }
+
+  if (answers.styling && styles[answers.styling]?.files) {
+    reporter.info(`${maybeUseEmoji(`🎨 `)}Adding necessary styling files...`)
+    await writeFiles(answers.project, styles[answers.styling].files)
+  }
+
   await setSiteMetadata(fullPath, `title`, siteName)
 
   await gitSetup(answers.project)
@@ -315,7 +301,7 @@ ${colors.bold(`Thanks! Here's what we'll now do:`)}
   reporter.info(
     stripIndent`
     ${maybeUseEmoji(`🎉  `)}Your new Gatsby site ${colors.bold(
-      dirName
+      siteName
     )} has been successfully created
     at ${colors.bold(fullPath)}.
     `
@@ -329,17 +315,6 @@ ${colors.bold(`Thanks! Here's what we'll now do:`)}
   `)
 
   reporter.info(`See all commands at\n
-  ${colors.blueBright(`https://www.gatsbyjs.com/docs/gatsby-cli/`)}
+  ${colors.blueBright(`https://www.gatsbyjs.com/docs/reference/gatsby-cli/`)}
   `)
-
-  const siteHash = md5(fullPath)
-  trackCli(`CREATE_GATSBY_SUCCESS`, { siteHash })
 }
-
-process.on(`exit`, exitCode => {
-  trackCli(`CREATE_GATSBY_END`, { exitCode })
-
-  if (exitCode === -1) {
-    trackCli(`CREATE_GATSBY_ERROR`)
-  }
-})

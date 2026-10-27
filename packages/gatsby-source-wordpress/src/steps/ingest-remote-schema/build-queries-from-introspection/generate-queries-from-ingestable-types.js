@@ -9,9 +9,7 @@ import {
   generateReusableFragments,
 } from "./build-query-on-field-name"
 
-import clipboardy from "clipboardy"
-
-import store from "~/store"
+import { getStore } from "~/store"
 import { getTypeSettingsByType } from "~/steps/create-schema-customization/helpers"
 import prettier from "prettier"
 import { formatLogMessage } from "~/utils/format-log-message"
@@ -126,7 +124,7 @@ const generateNodeQueriesFromIngestibleFields = async () => {
         },
       },
     },
-  } = store.getState()
+  } = getStore().getState()
 
   const {
     fieldBlacklist,
@@ -278,7 +276,7 @@ const generateNodeQueriesFromIngestibleFields = async () => {
         singleFieldName,
         singleNodeRootFieldInfo,
         settings,
-        store,
+        store: getStore(),
         fieldVariables,
         remoteSchema,
         transformedFields,
@@ -317,6 +315,8 @@ const generateNodeQueriesFromIngestibleFields = async () => {
             `Query debug mode. Writing node list query for the ${nodesType.name} node type to the system clipboard and exiting\n\n`
           )
         )
+        // clipboardy is ESM-only package
+        const { default: clipboardy } = await import(`clipboardy`)
         await clipboardy.write(
           prettier.format(nodeListQueries[0], { parser: `graphql` })
         )

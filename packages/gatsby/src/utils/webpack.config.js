@@ -26,6 +26,7 @@ import { shouldGenerateEngines } from "./engines-helpers"
 import { ROUTES_DIRECTORY } from "../constants"
 import { BabelConfigItemsCacheInvalidatorPlugin } from "./babel-loader"
 import { PartialHydrationPlugin } from "./webpack/plugins/partial-hydration"
+import { resolveJSFilepath } from "../bootstrap/resolve-js-file-path"
 
 const FRAMEWORK_BUNDLES = [`react`, `react-dom`, `scheduler`, `prop-types`]
 
@@ -450,9 +451,7 @@ module.exports = async (
         break
     }
 
-    // TODO(v5): Remove since this is only useful during Gatsby 4 publishes
-    // Removes it from the client payload as it's not used there
-    if (_CFLAGS_.GATSBY_MAJOR !== `5`) {
+    if (!isPartialHydrationEnabled) {
       configRules.push({
         test: /react-server-dom-webpack/,
         use: loaders.null(),
@@ -614,13 +613,38 @@ module.exports = async (
     config.optimization = {
       // TODO fix our partial hydration manifest
       mangleExports: !isPartialHydrationEnabled,
-      splitChunks: {
+      minimize: false,
+    }
+
+    if (stage === `build-html`) {
+      config.optimization.splitChunks = {
+        chunks: `async`,
+        minSize: 20000,
+        minRemainingSize: 0,
+        minChunks: 1,
+        maxAsyncRequests: 30,
+        maxInitialRequests: 30,
+        enforceSizeThreshold: 50000,
+        cacheGroups: {
+          defaultVendors: {
+            test: /[\\/]node_modules[\\/]/,
+            priority: -10,
+            reuseExistingChunk: true,
+          },
+          default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true,
+          },
+        },
+      }
+    } else {
+      config.optimization.splitChunks = {
         cacheGroups: {
           default: false,
           defaultVendors: false,
         },
-      },
-      minimize: false,
+      }
     }
   }
 
@@ -635,6 +659,7 @@ module.exports = async (
         framework: {
           chunks: `all`,
           name: `framework`,
+          // Important: If you change something here, also update "gatsby-plugin-preact"
           test: module => {
             // Packages like gatsby-plugin-image might import from "react-dom/server". We don't want to include react-dom-server in the framework bundle.
             // A rawRequest might look like these:
@@ -845,14 +870,17 @@ module.exports = async (
         const builtinsExternalsDictionary = builtinModules.reduce(
           (acc, builtinModule) => {
             if (builtinModulesToTrack.includes(builtinModule)) {
-              acc[builtinModule] = `commonjs ${path.join(
+              const builtinModuleTracked = path.join(
                 program.directory,
                 `.cache`,
                 `ssr-builtin-trackers`,
                 builtinModule
-              )}`
+              )
+              acc[builtinModule] = `commonjs ${builtinModuleTracked}`
+              acc[`node:${builtinModule}`] = `commonjs ${builtinModuleTracked}`
             } else {
               acc[builtinModule] = `commonjs ${builtinModule}`
+              acc[`node:${builtinModule}`] = `commonjs ${builtinModule}`
             }
             return acc
           },
@@ -882,25 +910,27 @@ module.exports = async (
       `webpack`,
       `stage-` + stage
     )
+    const pluginsPathsPromises = store
+      .getState()
+      .flattenedPlugins.filter(plugin =>
+        plugin.nodeAPIs.includes(`onCreateWebpackConfig`)
+      )
+      .map(
+        async plugin =>
+          plugin.resolvedCompiledGatsbyNode ??
+          (await resolveJSFilepath({
+            rootDir: plugin.resolve,
+            filePath: path.join(plugin.resolve, `gatsby-node`),
+          }))
+      )
+    const pluginsPaths = await Promise.all(pluginsPathsPromises)
 
     const cacheConfig = {
       type: `filesystem`,
       name: stage,
       cacheLocation,
       buildDependencies: {
-        config: [
-          __filename,
-          ...store
-            .getState()
-            .flattenedPlugins.filter(plugin =>
-              plugin.nodeAPIs.includes(`onCreateWebpackConfig`)
-            )
-            .map(
-              plugin =>
-                plugin.resolvedCompiledGatsbyNode ??
-                path.join(plugin.resolve, `gatsby-node.js`)
-            ),
-        ],
+        config: [__filename, ...pluginsPaths],
       },
     }
 

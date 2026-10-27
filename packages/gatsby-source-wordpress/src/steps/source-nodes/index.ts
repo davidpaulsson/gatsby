@@ -4,13 +4,19 @@ import fetchAndApplyNodeUpdates from "./update-nodes/fetch-node-updates"
 import { fetchAndCreateAllNodes } from "./fetch-nodes/fetch-nodes"
 
 import { LAST_COMPLETED_SOURCE_TIME } from "~/constants"
-import store from "~/store"
+import { getStore, withPluginKey } from "~/store"
 import fetchAndCreateNonNodeRootFields from "./create-nodes/fetch-and-create-non-node-root-fields"
 import { allowFileDownloaderProgressBarToClear } from "./create-nodes/create-remote-file-node/progress-bar-promise"
 import { sourcePreviews } from "~/steps/preview"
+import { hasStatefulSourceNodes } from "~/utils/gatsby-features"
 
-const sourceNodes: Step = async helpers => {
-  const { cache, webhookBody, refetchAll } = helpers
+const sourceNodes: Step = async (helpers, pluginOptions) => {
+  const { cache, webhookBody, refetchAll, actions } = helpers
+  const typePrefix = pluginOptions.schema?.typePrefix ?? ``
+
+  if (hasStatefulSourceNodes) {
+    actions.enableStatefulSourceNodes()
+  }
 
   // fetch non-node root fields such as settings.
   // For now, we're refetching them on every build
@@ -25,16 +31,16 @@ const sourceNodes: Step = async helpers => {
 
   const now = Date.now()
 
+  const prefixedSourceTimeKey = withPluginKey(LAST_COMPLETED_SOURCE_TIME)
+
   const lastCompletedSourceTime =
     webhookBody.refreshing && webhookBody.since
       ? webhookBody.since
-      : await cache.get(LAST_COMPLETED_SOURCE_TIME)
+      : await cache.get(prefixedSourceTimeKey)
 
-  const { schemaWasChanged, foundUsableHardCachedData } =
-    store.getState().remoteSchema
+  const { schemaWasChanged } = getStore().getState().remoteSchema
 
   const fetchEverything =
-    foundUsableHardCachedData ||
     !lastCompletedSourceTime ||
     refetchAll ||
     // don't refetch everything in development
@@ -60,9 +66,9 @@ const sourceNodes: Step = async helpers => {
   await nonNodeRootFieldsPromise
 
   allowFileDownloaderProgressBarToClear()
-  await helpers.cache.set(LAST_COMPLETED_SOURCE_TIME, now)
+  await helpers.cache.set(prefixedSourceTimeKey, now)
 
-  const { dispatch } = store
+  const { dispatch } = getStore()
   dispatch.remoteSchema.setSchemaWasChanged(false)
   dispatch.develop.resumeRefreshPolling()
 }

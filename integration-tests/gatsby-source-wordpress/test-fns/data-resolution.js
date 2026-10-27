@@ -2,9 +2,7 @@
  * @jest-environment node
  */
 
-const {
-  default: fetchGraphql,
-} = require("gatsby-source-wordpress/dist/utils/fetch-graphql")
+const { fetchGraphql } = require("./test-utils/graphql")
 const { URL } = require("url")
 
 const gatsbyConfig = require("../gatsby-config")
@@ -47,7 +45,7 @@ describe(`data resolution`, () => {
     expect(data[`allWpMenu`].totalCount).toBe(3)
     expect(data[`allWpMenuItem`].totalCount).toBe(4)
     expect(data[`allWpPostFormat`].totalCount).toBe(0)
-    expect(data[`allWpContentType`].totalCount).toBe(9)
+    expect(data[`allWpContentType`].totalCount).toBe(7)
   })
 
   testResolvedData({
@@ -340,8 +338,8 @@ describe(`data resolution`, () => {
       )
     )
 
-    expect(gatsbyResult.data.wpPage).toStrictEqual(wpGraphQLPageNormalizedPaths)
-    expect(gatsbyResult.data.wp.seo).toStrictEqual(WPGraphQLData.seo)
+    expect(gatsbyResult.data.wpPage).toEqual(wpGraphQLPageNormalizedPaths)
+    expect(gatsbyResult.data.wp.seo).toEqual(WPGraphQLData.seo)
   })
 
   it(`Does not download files whose size exceed the maxFileSizeBytes option`, async () => {

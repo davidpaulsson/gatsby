@@ -44,9 +44,7 @@ npm install gatsby-source-contentful gatsby-plugin-image
 
 ## Setup Instructions
 
-To get setup quickly with a new site and have Gatsby Cloud do the heavy lifting, [deploy a new Gatsby Contentful site with just a few clicks on gatsbyjs.com](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/contentful/starter-gatsby-blog).
-
-For more detailed instructions on manually configuring your Gatsby Contentful site for production builds and Preview builds visit [the Gatsby Cloud knowledgebase](https://support.gatsbyjs.com/hc/en-us/articles/360056047134-Add-the-Gatsby-Cloud-App-to-Contentful).
+To get setup quickly with a new site and have Netlify do the heavy lifting, [deploy a new Gatsby Contentful site with just a few clicks on netlify.com](https://app.netlify.com/start/deploy?repository=https://github.com/contentful/starter-gatsby-blog).
 
 ## How to use
 
@@ -143,10 +141,6 @@ For example, to filter locales on only germany `localeFilter: locale => locale.c
 
 List of locales and their codes can be found in Contentful app -> Settings -> Locales
 
-**`forceFullSync`** [boolean][optional] [default: `false`]
-
-Prevents the use of sync tokens when accessing the Contentful API.
-
 **`proxy`** [object][optional] [default: `undefined`]
 
 Axios proxy configuration. See the [axios request config documentation](https://github.com/mzabriskie/axios#request-config) for further information about the supported values.
@@ -161,7 +155,7 @@ Using the ID is a much more stable property to work with as it will change less 
 
 If you are confident your content types will have natural-language IDs (e.g. `blogPost`), then you should set this option to `false`. If you are unable to ensure this, then you should leave this option set to `true` (the default).
 
-**`pageLimit`** [number][optional] [default: `100`]
+**`pageLimit`** [number][optional] [default: `1000`]
 
 Number of entries to retrieve from Contentful at a time. Due to some technical limitations, the response payload should not be greater than 7MB when pulling content from Contentful. If you encounter this issue you can set this param to a lower number than 100, e.g `50`.
 
@@ -186,6 +180,10 @@ Learn how to use them at the [Contentful Tags](#contentful-tags) section.
 Possibility to limit how many contentType/nodes are created in GraphQL. This can limit the memory usage by reducing the amount of nodes created. Useful if you have a large space in Contentful and only want to get the data from certain content types.
 
 For example, to exclude content types starting with "page" `contentTypeFilter: contentType => !contentType.sys.id.startsWith('page')`
+
+**`typePrefix`** [string][optional] [default: `Contentful`]
+
+Prefix for the type names created in GraphQL. This can be used to avoid conflicts with other plugins, or if you want more than one instance of this plugin in your project. For example, if you set this to `Blog`, the type names will be `BlogAsset` and `allBlogAsset`.
 
 ## How to query for nodes
 

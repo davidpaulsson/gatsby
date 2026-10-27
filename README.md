@@ -13,7 +13,7 @@
   </strong>
 </p>
 <p align="center">
-  Gatsby is a free and open source framework based on React that helps developers build blazing fast websites and apps. </br> It combines the control and scalability of dynamically rendered sites with the speed of static-site generation, creating a whole new web of possibilities.
+  Gatsby is a free and open-source framework based on React that helps developers build blazing fast websites and apps. <br /> It combines the control and scalability of dynamically rendered sites with the speed of static-site generation, creating a whole new web of possibilities.
 </p>
 <p align="center">
   <a href="https://github.com/gatsbyjs/gatsby/blob/master/LICENSE">
@@ -34,15 +34,12 @@
   <a href="https://gatsbyjs.com/contributing/how-to-contribute/">
     <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome!" />
   </a>
-  <a href="https://twitter.com/intent/follow?screen_name=gatsbyjs">
-    <img src="https://img.shields.io/twitter/follow/gatsbyjs.svg?label=Follow%20@gatsbyjs" alt="Follow @GatsbyJS" />
-  </a>
 </p>
 
 <h2 align="center">
-  <a href="https://www.gatsbyjs.com/docs/">Quickstart</a>
+  <a href="https://www.gatsbyjs.com/docs/quick-start/">Quickstart</a>
   <span> · </span>
-  <a href="https://www.gatsbyjs.com/tutorial/">Tutorial</a>
+  <a href="https://www.gatsbyjs.com/docs/tutorial/getting-started/">Tutorial</a>
   <span> · </span>
   <a href="https://www.gatsbyjs.com/plugins/">Plugins</a>
   <span> · </span>
@@ -52,9 +49,7 @@
   <span> · </span>
   <a href="https://www.gatsbyjs.com/contributing/how-to-contribute/">Contribute</a>
   <br />
-  Support: <a href="https://twitter.com/AskGatsbyJS">Twitter</a>, <a href="https://github.com/gatsbyjs/gatsby/discussions">Discussions</a>
-  <span> & </span>
-  <a href="https://gatsby.dev/discord">Discord</a>
+  Support: <a href="https://github.com/gatsbyjs/gatsby/discussions">Discussions</a>
 </h2>
 
 Gatsby helps professional developers efficiently create maintainable, highly-performant, content-rich websites.
@@ -69,23 +64,21 @@ Gatsby helps professional developers efficiently create maintainable, highly-per
 
 - **Use a Modern Stack for Every Site.** No matter where the data comes from, Gatsby sites are built using React and GraphQL. Build a uniform workflow for you and your team, regardless of whether the data is coming from the same backend.
 
-- **Host at Scale for Pennies.** Gatsby sites don’t require servers, so you can host your entire site on a CDN for a fraction of the cost of a server-rendered site. Many Gatsby sites can be hosted entirely free on [Gatsby Cloud](https://www.gatsbyjs.com/cloud/) and other similar services.
-
-- **Use Gatsby's Centralized Data Layer Everywhere.** With Gatsby's [Valhalla Content Hub](https://www.gatsbyjs.com/products/valhalla-content-hub/) you can bring Gatsby's data layer to any project. Making it accessible via a unified GraphQL API for building content sites, eCommerce platforms, and both native and web applications.
+- **Host at Scale for Pennies.** Gatsby sites don’t require servers, so you can host your entire site on a CDN for a fraction of the cost of a server-rendered site. Many Gatsby sites can be hosted entirely free on [Netlify](https://www.netlify.com/) and other similar services.
 
 [**Learn how to use Gatsby for your next project.**](https://www.gatsbyjs.com/docs/)
 
 ## 🚀 Ship your first Gatsby site in 5 Minutes
 
-Click the link below to quickly try the workflow of developing, building, and deploying websites with Gatsby and Gatsby Cloud.
+Click the link below to quickly try the workflow of developing, building, and deploying websites with Gatsby and Netlify.
 
-[<img src="https://www.gatsbyjs.com/deploynow.svg" alt="Deploy to Gatsby Cloud">](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/gatsbyjs/gatsby-starter-blog&utm_source=github&utm_medium=link&utm_campaign=onboarding&utm_content=oss)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-blog&utm_source=github&utm_medium=link&utm_campaign=onboarding&utm_content=oss)
 
 At the end of this process, you'll have
 
-1. a site working on Gatsby Cloud
+1. a site working on Netlify
 2. a new repository that is linked to that new site
-3. as you push changes to your new repository, Gatsby Cloud will automatically rebuild and redeploy your site!
+3. as you push changes to your new repository, Netlify will automatically rebuild and redeploy your site!
 
 ## 💻 Get started with Gatsby locally in 5 Minutes
 
@@ -112,19 +105,19 @@ You can get a new Gatsby site up and running on your local dev environment in 5 
 
    Your site is now running at `http://localhost:8000`. Open the `my-gatsby-site` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes, and the browser will update in real time!
 
-At this point, you’ve got a fully functional Gatsby website. For additional information on how you can customize your Gatsby site, see our [plugins](https://gatsbyjs.com/plugins/) and [the official tutorial](https://www.gatsbyjs.com/tutorial/).
+At this point, you’ve got a fully functional Gatsby website. For additional information on how you can customize your Gatsby site, see our [plugins](https://gatsbyjs.com/plugins/) and [the official tutorial](https://www.gatsbyjs.com/docs/tutorial/getting-started/).
 
 ## 🎓 Learning Gatsby
 
 Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.com/).
 
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.com/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
+- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.com/docs/tutorial/getting-started/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
 
 - **To dive straight into code samples head [to our documentation](https://www.gatsbyjs.com/docs/).** In particular, check out the “<i>How-to Guides</i>”, “<i>Reference</i>”, and “<i>Conceptual Guides</i>” sections in the sidebar.
 
 We welcome suggestions for improving our docs. See the [“how to contribute”](https://www.gatsbyjs.com/contributing/how-to-contribute/) documentation for more details.
 
-**Start Learning Gatsby: [Follow the Tutorial](https://www.gatsbyjs.com/tutorial/) · [Read the Docs](https://www.gatsbyjs.com/docs/)**
+**Start Learning Gatsby: [Follow the Tutorial](https://www.gatsbyjs.com/docs/tutorial/getting-started/) · [Read the Docs](https://www.gatsbyjs.com/docs/)**
 
 ## 🚢 Release Notes
 
@@ -148,7 +141,7 @@ Gatsby is dedicated to building a welcoming, diverse, safe community. We expect 
 
 Whether you're helping us fix bugs, improve the docs, or spread the word, we'd love to have you as part of the Gatsby community!
 
-Check out our [**Contributing Guide**](https://www.gatsbyjs.com/contributing/how-to-contribute/) for ideas on contributing and setup steps for getting our repositories up and running on your local machine.
+Check out our [**Contributing Guide**](https://www.gatsbyjs.com/contributing/) for ideas on contributing and setup steps for getting our repositories up and running on your local machine.
 
 ### A note on how this repository is organized
 
@@ -160,6 +153,6 @@ Licensed under the [MIT License](./LICENSE).
 
 ## 💜 Thanks
 
-Thanks go out to all our many contributors creating plugins, starters, videos, and blog posts. And a special appreciation for our community members helping with issues and PRs, or answering questions on Discord and GitHub Discussions.
+Thanks go out to all our many contributors creating plugins, starters, videos, and blog posts. And a special appreciation for our community members helping with issues and PRs, or answering questions on GitHub Discussions.
 
 A big part of what makes Gatsby great is each and every one of you in the community. Your contributions enrich the Gatsby experience and make it better every day.

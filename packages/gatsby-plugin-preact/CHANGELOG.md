@@ -3,6 +3,96 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.16.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-preact@7.16.0/packages/gatsby-plugin-preact) (2026-01-26)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.16)
+
+#### Bug Fixes
+
+- use more explicit node.js version range [#39398](https://github.com/gatsbyjs/gatsby/issues/39398) ([c355640](https://github.com/gatsbyjs/gatsby/commit/c35564071466681951402a04fb33ae34cc673a2b))
+
+#### Other Changes
+
+- Revert "chore(release): Publish next pre-minor" ([3539ec8](https://github.com/gatsbyjs/gatsby/commit/3539ec8d8973e8eabbeb10734e3bb54bd831ac6c))
+
+## [7.15.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-preact@7.15.0/packages/gatsby-plugin-preact) (2025-08-27)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.15)
+
+**Note:** Version bump only for package gatsby-plugin-preact
+
+## [7.14.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-preact@7.14.0/packages/gatsby-plugin-preact) (2024-11-06)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.14)
+
+**Note:** Version bump only for package gatsby-plugin-preact
+
+### [7.13.1](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-preact@7.13.1/packages/gatsby-plugin-preact) (2024-01-23)
+
+**Note:** Version bump only for package gatsby-plugin-preact
+
+## [7.13.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-preact@7.13.0/packages/gatsby-plugin-preact) (2023-12-18)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.13)
+
+**Note:** Version bump only for package gatsby-plugin-preact
+
+## [7.12.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-preact@7.12.0/packages/gatsby-plugin-preact) (2023-08-24)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.12)
+
+**Note:** Version bump only for package gatsby-plugin-preact
+
+## [7.11.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-preact@7.11.0/packages/gatsby-plugin-preact) (2023-06-15)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.11)
+
+#### Chores
+
+- update dependency preact to ^10.15.1 for gatsby-plugin-preact [#38169](https://github.com/gatsbyjs/gatsby/issues/38169) ([9bfa51f](https://github.com/gatsbyjs/gatsby/commit/9bfa51fce541cd3b12a60ec71a8b4f0358fb2ad1))
+
+## [7.10.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-preact@7.10.0/packages/gatsby-plugin-preact) (2023-05-16)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.10)
+
+**Note:** Version bump only for package gatsby-plugin-preact
+
+## [7.9.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-preact@7.9.0/packages/gatsby-plugin-preact) (2023-04-18)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.9)
+
+#### Chores
+
+- update dependency preact to ^10.13.2 for gatsby-plugin-preact [#37844](https://github.com/gatsbyjs/gatsby/issues/37844) ([78804bd](https://github.com/gatsbyjs/gatsby/commit/78804bd357b3cb51c01a31ce79dcde43873e56dc))
+
+## [7.8.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-preact@7.8.0/packages/gatsby-plugin-preact) (2023-03-21)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.8)
+
+**Note:** Version bump only for package gatsby-plugin-preact
+
+## [7.7.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-preact@7.7.0/packages/gatsby-plugin-preact) (2023-02-21)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.7)
+
+#### Bug Fixes
+
+- Adjust framework chunk overwrite [#37658](https://github.com/gatsbyjs/gatsby/issues/37658) ([d47ef5e](https://github.com/gatsbyjs/gatsby/commit/d47ef5e1e64f3ae0284b34d4ad822cece26f6f08))
+
+### [7.6.1](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-preact@7.6.1/packages/gatsby-plugin-preact) (2023-02-16)
+
+#### Bug Fixes
+
+- Adjust framework chunk overwrite [#37658](https://github.com/gatsbyjs/gatsby/issues/37658) [#37666](https://github.com/gatsbyjs/gatsby/issues/37666) ([b5978a6](https://github.com/gatsbyjs/gatsby/commit/b5978a6a0f3e15f4470decf7ae1c5756dc2d85b2))
+
+## [7.6.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-preact@7.6.0/packages/gatsby-plugin-preact) (2023-02-07)
+
+[🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.6)
+
+#### Bug Fixes
+
+- update babel monorepo [#37568](https://github.com/gatsbyjs/gatsby/issues/37568) ([13a0a9e](https://github.com/gatsbyjs/gatsby/commit/13a0a9e83dcb015b65dff6b73cdd5dea09c2988f))
+
 ## [7.5.0](https://github.com/gatsbyjs/gatsby/commits/gatsby-plugin-preact@7.5.0/packages/gatsby-plugin-preact) (2023-01-24)
 
 [🧾 Release notes](https://www.gatsbyjs.com/docs/reference/release-notes/v5.5)

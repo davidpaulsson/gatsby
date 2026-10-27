@@ -115,7 +115,7 @@ When starting out with GraphQL, we recommend the following two tutorials:
 - https://www.howtographql.com/
 - https://graphql.org/learn/
 
-[The official Gatsby tutorial](/docs/tutorial/part-4/) also includes an introduction to using GraphQL specifically with Gatsby.
+[The official Gatsby tutorial](/docs/tutorial/getting-started/part-4/) also includes an introduction to using GraphQL specifically with Gatsby.
 
 ## How do GraphQL and Gatsby work together?
 
@@ -375,4 +375,4 @@ export const query = graphql`
 
 - [GraphQL specification](https://spec.graphql.org/October2016/)
 - [Interfaces and Unions](https://medium.com/the-graphqlhub/graphql-tour-interfaces-and-unions-7dd5be35de0d)
-- [Relay Compiler (which Gatsby uses to process queries)](https://facebook.github.io/relay/docs/en/compiler-architecture.html)
+- [Relay Compiler (which Gatsby uses to process queries)](https://relay.dev/docs/principles-and-architecture/compiler-architecture/)

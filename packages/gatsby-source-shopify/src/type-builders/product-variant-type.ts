@@ -1,6 +1,7 @@
 export function productVariantTypeBuilder(prefix: string): string {
   return `
       type ${prefix}ProductVariant implements Node @dontInfer {
+        _product: String! # Temporary field so we don't break existing users
         availableForSale: Boolean!
         barcode: String
         compareAtPrice: Float
@@ -17,24 +18,21 @@ export function productVariantTypeBuilder(prefix: string): string {
         position: Int!
         presentmentPrices: [${prefix}ProductVariantPricePair!]!
         price: Float!
-        product: ${prefix}Product! @link(from: "product.shopifyId", by: "shopifyId")
-        requiresShipping: Boolean! @deprecated(reason: "Use \`InventoryItem.requiresShipping\` instead.")
+        product: ${prefix}Product! @link(from: "_product", by: "id")
         selectedOptions: [${prefix}SelectedOption!]!
-        sellingPlanGroupCount: Int!
-        sku: String
+        sellingPlanGroupCount: Int! @proxy(from: "sellingPlanGroupsCount.count")
         shopifyId: String!
+        sku: String
         storefrontId: String!
-        taxCode: String
         taxable: Boolean!
+        taxCode: String
         title: String!
         updatedAt: Date! @dateformat
-        weight: Float
-        weightUnit: ${prefix}WeightUnit!
       }
 
       enum ${prefix}ProductVariantInventoryPolicy {
-        DENY
         CONTINUE
+        DENY
       }
 
       type ${prefix}ProductVariantPricePair {
